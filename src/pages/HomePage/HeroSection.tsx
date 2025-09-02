@@ -25,14 +25,11 @@ const HeroSection = () => {
         backgroundImage: "url('/hero-delivery-background.jpg')",
       }}
     >
-      {/* Overlay gradient for better text visibility */}
       <div className="absolute inset-0 bg-linear-to-b from-black/30 via-black/40 to-black/30"></div>
 
-      {/* Floating background shapes */}
       <div className="absolute top-32 left-20 h-40 w-40 animate-pulse rounded-full bg-cyan-400/30 blur-3xl" />
       <div className="absolute right-16 bottom-28 h-52 w-52 animate-bounce rounded-full bg-sky-500/20 blur-3xl" />
 
-      {/* Hero Content */}
       <div className="relative z-20 container mx-auto px-4 py-24 text-center md:py-32">
         <motion.div
           className="mx-auto max-w-4xl rounded-3xl border border-white/10 bg-white/10 p-10 shadow-[0_8px_60px_rgba(6,182,212,0.2)] backdrop-blur-lg"
@@ -84,7 +81,6 @@ const HeroSection = () => {
         </motion.div>
       </div>
 
-      {/* Floating Delivery Icons */}
       <motion.div
         initial={{ y: -20 }}
         animate={{ y: 20 }}
