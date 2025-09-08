@@ -12,6 +12,8 @@ import {
 import { Input } from "@/components/ui/input";
 
 import { cn } from "@/lib/utils";
+import { useLoginMutation } from "@/redux/Auth/auth.api";
+
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import { type FieldValues, type SubmitHandler, useForm } from "react-hook-form";
@@ -24,11 +26,21 @@ export function LoginForm({
 }: React.HTMLAttributes<HTMLDivElement>) {
   const navigate = useNavigate();
   const form = useForm();
+  const [login] = useLoginMutation();
   const [showPassword, setShowPassword] = useState(false);
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
       console.log("data", data);
+      const res = await login(data).unwrap();
+      console.log("Login successful:", res);
+
+      if (res.success) {
+        toast.success("Logged in successfully");
+        navigate("/");
+      }
+
+      console.log(res);
     } catch (err) {
       if (
         typeof err === "object" &&
