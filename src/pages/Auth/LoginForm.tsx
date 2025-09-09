@@ -1,6 +1,9 @@
+"use client";
+
+import type React from "react";
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import PrimaryButton from "@/components/PrimaryButton";
 import {
   Form,
   FormControl,
@@ -12,8 +15,9 @@ import {
 import { Input } from "@/components/ui/input";
 
 import { cn } from "@/lib/utils";
-import { useLoginMutation } from "@/redux/Auth/auth.api";
 
+import PrimaryButton from "@/components/PrimaryButton";
+import { useLoginMutation } from "@/redux/Auth/auth.api";
 import { Eye, EyeOff } from "lucide-react";
 import { useState } from "react";
 import { type FieldValues, type SubmitHandler, useForm } from "react-hook-form";
@@ -69,26 +73,30 @@ export function LoginForm({
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <div className="flex flex-col items-center gap-2 text-center">
-        <h1 className="text-2xl font-bold">Login to your account</h1>
-        <p className="text-muted-foreground text-sm text-balance">
-          Enter your email below to login to your account
+      <div className="flex flex-col items-center gap-3 text-center">
+        <h2 className="text-2xl font-bold text-gray-900">Sign In</h2>
+        <p className="text-sm text-gray-600">
+          Enter your credentials to access your account
         </p>
       </div>
+
       <div className="grid gap-6">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
             <FormField
               control={form.control}
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel className="font-semibold text-gray-700">
+                    Email Address
+                  </FormLabel>
                   <FormControl>
                     <Input
                       placeholder="john@example.com"
                       {...field}
                       value={field.value || ""}
+                      className="border-cyan-200 bg-sky-50/50 placeholder:text-gray-400 focus:border-cyan-500 focus:ring-cyan-500"
                     />
                   </FormControl>
                   <FormMessage />
@@ -101,22 +109,32 @@ export function LoginForm({
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <div className="flex items-center justify-between">
+                    <FormLabel className="font-semibold text-gray-700">
+                      Password
+                    </FormLabel>
+                    <Link
+                      to="/forgot-password"
+                      className="text-xs font-medium text-cyan-600 hover:text-cyan-700"
+                    >
+                      Forgot?
+                    </Link>
+                  </div>
                   <div className="relative">
                     <FormControl>
                       <Input
                         type={showPassword ? "text" : "password"}
-                        placeholder="********"
+                        placeholder="••••••••"
                         {...field}
                         value={field.value || ""}
-                        className="pr-10"
+                        className="border-cyan-200 bg-sky-50/50 pr-10 placeholder:text-gray-400 focus:border-cyan-500 focus:ring-cyan-500"
                       />
                     </FormControl>
 
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 hover:text-gray-700"
+                      className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-500 transition-colors hover:text-cyan-600"
                     >
                       {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                     </button>
@@ -126,14 +144,23 @@ export function LoginForm({
               )}
             />
 
-            <PrimaryButton className="w-full" text="Login " type="submit" />
+            <PrimaryButton
+              className="w-full rounded-lg bg-linear-to-r from-cyan-500 to-sky-500 py-2.5 font-semibold text-white shadow-lg shadow-cyan-200/50 transition-all duration-300 hover:from-cyan-600 hover:to-sky-600 hover:shadow-cyan-300/70"
+              text="Sign In"
+              type="submit"
+            />
           </form>
         </Form>
       </div>
-      <div className="text-center text-sm">
+
+      <div className="text-center text-sm text-gray-600">
         Don&apos;t have an account?{" "}
-        <Link to="/register" replace className="underline underline-offset-4">
-          Register
+        <Link
+          to="/register"
+          replace
+          className="font-semibold text-cyan-600 underline underline-offset-4 transition-colors hover:text-cyan-700"
+        >
+          Create one
         </Link>
       </div>
     </div>
