@@ -45,7 +45,7 @@ const HeroSection = () => {
 
           <motion.h1
             variants={fadeInUp}
-            className="mb-6 bg-linear-to-r from-cyan-400 via-sky-300 to-blue-400 bg-clip-text text-5xl font-extrabold text-transparent drop-shadow-lg md:text-6xl lg:text-7xl"
+            className="mb-6 bg-linear-to-r from-cyan-400 via-sky-300 to-blue-400 bg-clip-text text-5xl font-extrabold text-transparent drop-shadow-lg md:text-6xl lg:text-7xl pb-4"
           >
             Deliver Anything, Anywhere, Anytime
           </motion.h1>
