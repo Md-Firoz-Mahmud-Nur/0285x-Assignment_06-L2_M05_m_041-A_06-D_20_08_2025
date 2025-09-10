@@ -59,7 +59,7 @@ export default function Login() {
             </div>
           </div>
 
-          <div className="rounded-3xl border border-cyan-100/50 bg-white/80 p-8 shadow-2xl shadow-cyan-200/20 backdrop-blur-xl md:p-10">
+          <div className="rounded-3xl border border-blue-200 bg-white/80 p-8 shadow-2xl shadow-cyan-200/20 backdrop-blur-xl md:p-10">
             <LoginForm></LoginForm>
           </div>
 

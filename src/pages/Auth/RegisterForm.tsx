@@ -79,7 +79,7 @@ export function RegisterForm({
         </p>
       </div>
 
-      <div className="rounded-2xl border border-white/20 bg-white/40 p-6 shadow-xl backdrop-blur-xl dark:border-slate-700/20 dark:bg-slate-900/40">
+      <div className="rounded-3xl border border-blue-200 bg-white/40 p-6 shadow-xl backdrop-blur-xl dark:border-slate-700/20 dark:bg-slate-900/40">
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-5">
             <FormField
