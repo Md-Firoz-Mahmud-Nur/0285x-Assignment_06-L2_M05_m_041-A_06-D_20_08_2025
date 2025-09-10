@@ -138,23 +138,8 @@ const Contact: React.FC = () => {
   if (isSubmitted) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-linear-to-br from-blue-50 via-blue-100 to-cyan-100 p-6">
-        <style>{`
-          @keyframes bounceIn {
-            0% { transform: scale(0.3); opacity: 0; }
-            50% { transform: scale(1.05); }
-            70% { transform: scale(0.9); }
-            100% { transform: scale(1); opacity: 1; }
-          }
-          @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-          }
-          .bounce-in { animation: bounceIn 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55); }
-          .pulse-success { animation: pulse 2s infinite; }
-        `}</style>
-
-        <div className="bounce-in w-full max-w-lg rounded-3xl border border-white/20 bg-white/90 p-12 text-center shadow-2xl backdrop-blur-xl">
-          <div className="pulse-success mx-auto mb-8 flex h-24 w-24 items-center justify-center rounded-full bg-linear-to-r from-blue-500 via-blue-600 to-cyan-600 shadow-lg shadow-blue-200">
+        <div className="w-full max-w-lg rounded-3xl border border-white/20 bg-white/90 p-12 text-center shadow-2xl backdrop-blur-xl">
+          <div className="mx-auto mb-8 flex h-24 w-24 items-center justify-center rounded-full bg-linear-to-r from-blue-500 via-blue-600 to-cyan-600 shadow-lg shadow-blue-200">
             <CheckCircle className="h-12 w-12 text-white" />
           </div>
 
@@ -214,7 +199,6 @@ const Contact: React.FC = () => {
         .glass {
           background: rgba(255, 255, 255, 0.25);
           backdrop-filter: blur(16px);
-          border: 1px solid rgba(255, 255, 255, 0.3);
         }
         .gradient-border {
           background: linear-gradient(white, white) padding-box,
@@ -257,7 +241,7 @@ const Contact: React.FC = () => {
 
         <div className="grid gap-16 lg:grid-cols-2">
           <div className="slide-in-left">
-            <div className="glass h-full rounded-3xl p-10 shadow-2xl">
+            <div className="glass h-full rounded-3xl border-2 border-blue-200 p-10 shadow-2xl">
               <h2 className="mb-10 flex items-center gap-3 text-4xl font-bold text-gray-800">
                 <MessageCircle className="h-8 w-8 text-blue-600" />
                 Get in Touch
@@ -332,7 +316,7 @@ const Contact: React.FC = () => {
           <div className="slide-in-right">
             <div
               id="contact-form"
-              className="glass rounded-3xl p-10 shadow-2xl"
+              className="glass rounded-3xl border-2 border-blue-200 p-10 shadow-2xl"
             >
               <h2 className="mb-10 flex items-center gap-3 text-4xl font-bold text-gray-800">
                 <Send className="h-8 w-8 text-cyan-500" />
@@ -358,7 +342,7 @@ const Contact: React.FC = () => {
                       placeholder="John Doe"
                     />
                     {errors.name && (
-                      <p className="mt-2 animate-pulse text-sm font-semibold text-red-500">
+                      <p className="mt-2 text-sm font-semibold text-red-500">
                         {errors.name}
                       </p>
                     )}
@@ -381,7 +365,7 @@ const Contact: React.FC = () => {
                       placeholder="john@example.com"
                     />
                     {errors.email && (
-                      <p className="mt-2 animate-pulse text-sm font-semibold text-red-500">
+                      <p className="mt-2 text-sm font-semibold text-red-500">
                         {errors.email}
                       </p>
                     )}
@@ -439,7 +423,7 @@ const Contact: React.FC = () => {
                     placeholder="How can we help you today?"
                   />
                   {errors.subject && (
-                    <p className="mt-2 animate-pulse text-sm font-semibold text-red-500">
+                    <p className="mt-2 text-sm font-semibold text-red-500">
                       {errors.subject}
                     </p>
                   )}
@@ -462,7 +446,7 @@ const Contact: React.FC = () => {
                     placeholder="Please describe your inquiry in detail. The more information you provide, the better we can assist you."
                   />
                   {errors.message && (
-                    <p className="mt-2 animate-pulse text-sm font-semibold text-red-500">
+                    <p className="mt-2 text-sm font-semibold text-red-500">
                       {errors.message}
                     </p>
                   )}
