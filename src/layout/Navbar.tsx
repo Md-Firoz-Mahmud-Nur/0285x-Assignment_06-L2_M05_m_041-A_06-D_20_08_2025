@@ -1,5 +1,7 @@
 "use client";
 
+import Loader from "@/components/Loader";
+import ProfileButton from "@/components/ProfileButton";
 import { Accordion } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,25 +16,68 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import {
+  authAPi,
+  useLogoutMutation,
+  useUserInfoQuery,
+} from "@/redux/Auth/auth.api";
+import { useAppDispatch } from "@/redux/hook";
 import { Menu } from "lucide-react";
+import { useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { toast } from "sonner";
 
+interface MenuItem {
+  title: string;
+  url: string;
+  role: string;
+}
 
 const menuItems = [
   { title: "Home", url: "/", role: "PUBLIC" },
-  { title: "About", url: "/about", role: "PUBLIC" },
-  { title: "Contact", url: "/contact", role: "PUBLIC" },
+  {
+    title: "About",
+    url: "/about",
+    role: "PUBLIC",
+  },
+  {
+    title: "Contact",
+    url: "/contact",
+    role: "PUBLIC",
+  },
 ];
 
 const Navbar = () => {
-  const isLoggedIn = false; // mock login status
+  const { data: user, isLoading } = useUserInfoQuery(undefined);
+  const [logout] = useLogoutMutation(undefined);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (user?.data) {
+      console.log("user from navbar", user.data);
+    }
+  }, [user]);
+
+  const handleLogout = async () => {
+    try {
+      await logout(undefined);
+      dispatch(authAPi.util.resetApiState());
+      localStorage.removeItem("user");
+      toast.success("Logout successful");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  if (isLoading) {
+    return <Loader></Loader>;
+  }
 
   return (
     <section className="dark:via-background fixed top-0 right-0 left-0 z-50 border-b border-blue-100 bg-linear-to-r from-blue-100 via-cyan-100 to-sky-50 py-4 backdrop-blur-sm dark:border-blue-800/30 dark:from-blue-950 dark:to-cyan-950/50">
       <div className="container mx-auto">
         {/* Desktop Menu */}
         <nav className="hidden items-center justify-between lg:flex">
-          {/* Logo */}
           <div className="mx-4 flex items-center gap-8">
             <NavLink to="/">
               <div className="group flex items-center gap-3">
@@ -58,35 +103,62 @@ const Navbar = () => {
             </NavLink>
           </div>
 
-          {/* Center Menu */}
           <div className="flex w-full items-center justify-center">
             <NavigationMenu>
               <NavigationMenuList className="gap-2">
                 {menuItems.map((item, index) => (
-                  <NavigationMenuItem key={index}>
-                    <Link
-                      to={item.url}
-                      className="group bg-background relative inline-flex h-10 w-max items-center justify-center rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 hover:scale-105 hover:bg-blue-50 hover:text-blue-700 hover:shadow-sm dark:hover:bg-blue-950/50 dark:hover:text-blue-300"
-                    >
-                      {item.title}
-                      <div className="absolute bottom-0 left-1/2 h-0.5 w-0 bg-linear-to-r from-blue-500 to-blue-600 transition-all duration-200 group-hover:left-0 group-hover:w-full"></div>
-                    </Link>
-                  </NavigationMenuItem>
+                  <div key={index}>
+                    {item.role.includes("PUBLIC")
+                      ? renderMenuItem(item)
+                      : item.role.includes(user?.data?.role)
+                        ? renderMenuItem(item)
+                        : ""}
+                  </div>
                 ))}
               </NavigationMenuList>
             </NavigationMenu>
           </div>
 
-          {/* Right Side Buttons */}
           <div className="flex items-center gap-3">
-            {isLoggedIn ? (
-              <Button
-                variant="outline"
-                size="sm"
-                className="border-blue-200 bg-transparent transition-all duration-200 hover:scale-105 hover:border-blue-300 hover:bg-blue-50 dark:border-blue-800 dark:hover:bg-blue-950/50"
-              >
-                Logout
-              </Button>
+            {user?.data?.email ? (
+              <div className="flex items-center gap-3">
+                <Button
+                  onClick={handleLogout}
+                  variant="outline"
+                  size="sm"
+                  className="border-blue-200 bg-transparent transition-all duration-200 hover:scale-105 hover:border-blue-300 hover:bg-blue-50 dark:border-blue-800 dark:hover:bg-blue-950/50"
+                >
+                  <svg
+                    className="mr-2 h-4 w-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                    />
+                  </svg>
+                  Logout
+                </Button>
+                <NavLink
+                  to={`${
+                    user?.data?.role === "SENDER"
+                      ? "/sender"
+                      : user?.data?.role === "RECEIVER"
+                        ? "/receiver"
+                        : "/admin"
+                  }`}
+                  className="group"
+                >
+                  <div className="relative">
+                    <ProfileButton userImage="https://i.ibb.co.com/7jLsYjf/user-2.jpg" />
+                    <div className="absolute top-0 right-0 h-3 w-3 animate-pulse rounded-full border-2 border-white bg-blue-500 dark:border-gray-900"></div>
+                  </div>
+                </NavLink>
+              </div>
             ) : (
               <div className="flex gap-2">
                 <NavLink to="/login">
@@ -111,10 +183,9 @@ const Navbar = () => {
           </div>
         </nav>
 
-        {/* Mobile Menu */}
+        {/* Mobile */}
         <div className="block px-2 lg:hidden">
           <div className="flex items-center justify-between">
-            {/* Logo */}
             <NavLink to="/">
               <div className="group flex items-center gap-2">
                 <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-linear-to-br from-blue-500 to-blue-600 shadow-md transition-all duration-300 group-hover:shadow-blue-200 dark:group-hover:shadow-blue-900/50">
@@ -137,18 +208,18 @@ const Navbar = () => {
                 </span>
               </div>
             </NavLink>
-
-            {/* Mobile Menu Button */}
             <Sheet>
-              <SheetTrigger asChild>
-                <Button
-                  variant="outline"
-                  size="icon"
-                  className="border-blue-200 bg-transparent transition-all duration-200 hover:border-blue-300 hover:bg-blue-50 dark:border-blue-800 dark:hover:bg-blue-950/50"
-                >
-                  <Menu className="size-6" />
-                </Button>
-              </SheetTrigger>
+              <div className="flex gap-3">
+                <SheetTrigger asChild>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    className="border-blue-200 bg-transparent transition-all duration-200 hover:border-blue-300 hover:bg-blue-50 dark:border-blue-800 dark:hover:bg-blue-950/50"
+                  >
+                    <Menu className="size-6" />
+                  </Button>
+                </SheetTrigger>
+              </div>
 
               <SheetContent className="dark:from-background overflow-y-auto bg-linear-to-b from-white via-blue-50/30 to-cyan-50/30 dark:via-blue-950/10 dark:to-cyan-950/10">
                 <SheetHeader>
@@ -182,26 +253,63 @@ const Navbar = () => {
                     collapsible
                     className="flex w-full flex-col gap-4"
                   >
-                    {menuItems.map((item) => (
-                      <Link
-                        key={item.title}
-                        to={item.url}
-                        className="text-md group flex items-center gap-3 rounded-lg p-3 font-semibold transition-all duration-200 hover:bg-blue-50 hover:text-blue-700 dark:hover:bg-blue-950/50 dark:hover:text-blue-300"
-                      >
-                        <div className="h-2 w-2 rounded-full bg-blue-500 opacity-0 transition-opacity duration-200 group-hover:opacity-100"></div>
-                        {item.title}
-                      </Link>
-                    ))}
+                    {menuItems.map((item) => renderMobileMenuItem(item))}
                   </Accordion>
 
                   <div className="flex flex-col gap-3">
-                    {isLoggedIn ? (
-                      <Button
-                        variant="outline"
-                        className="border-blue-200 bg-transparent transition-all duration-200 hover:border-blue-300 hover:bg-blue-50 dark:border-blue-800 dark:hover:bg-blue-950/50"
-                      >
-                        Logout
-                      </Button>
+                    {user?.data?.email ? (
+                      <>
+                        <NavLink
+                          to={`${
+                            user?.data?.role === "SENDER"
+                              ? "/sender"
+                              : user?.data?.role === "RECEIVER"
+                                ? "/receiver"
+                                : "/admin"
+                          }`}
+                        >
+                          <Button
+                            size="sm"
+                            className="w-full bg-linear-to-r from-blue-500 to-blue-600 text-white shadow-lg transition-all duration-200 hover:from-blue-600 hover:to-blue-700"
+                          >
+                            <svg
+                              className="mr-2 h-4 w-4"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+                              />
+                            </svg>
+                            Dashboard
+                          </Button>
+                        </NavLink>
+
+                        <Button
+                          onClick={handleLogout}
+                          variant="outline"
+                          className="border-blue-200 bg-transparent transition-all duration-200 hover:border-blue-300 hover:bg-blue-50 dark:border-blue-800 dark:hover:bg-blue-950/50"
+                        >
+                          <svg
+                            className="mr-2 h-4 w-4"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                            />
+                          </svg>
+                          Logout
+                        </Button>
+                      </>
                     ) : (
                       <>
                         <NavLink to="/login">
@@ -231,6 +339,33 @@ const Navbar = () => {
         </div>
       </div>
     </section>
+  );
+};
+
+const renderMenuItem = (item: MenuItem) => {
+  return (
+    <NavigationMenuItem key={item.title}>
+      <Link
+        to={item.url}
+        className="group bg-background relative inline-flex h-10 w-max items-center justify-center rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 hover:scale-105 hover:bg-blue-50 hover:text-blue-700 hover:shadow-sm dark:hover:bg-blue-950/50 dark:hover:text-blue-300"
+      >
+        {item.title}
+        <div className="absolute bottom-0 left-1/2 h-0.5 w-0 bg-linear-to-r from-blue-500 to-blue-600 transition-all duration-200 group-hover:left-0 group-hover:w-full"></div>
+      </Link>
+    </NavigationMenuItem>
+  );
+};
+
+const renderMobileMenuItem = (item: MenuItem) => {
+  return (
+    <Link
+      key={item.title}
+      to={item.url}
+      className="text-md group flex items-center gap-3 rounded-lg p-3 font-semibold transition-all duration-200 hover:bg-blue-50 hover:text-blue-700 dark:hover:bg-blue-950/50 dark:hover:text-blue-300"
+    >
+      <div className="h-2 w-2 rounded-full bg-blue-500 opacity-0 transition-opacity duration-200 group-hover:opacity-100"></div>
+      {item.title}
+    </Link>
   );
 };
 
