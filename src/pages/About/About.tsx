@@ -1,6 +1,5 @@
 "use client";
 
-import PrimaryButton from "@/components/PrimaryButton";
 import {
   Award,
   Clock,
@@ -46,8 +45,6 @@ interface Stat {
 const About: React.FC = () => {
   const [isVisible, setIsVisible] = useState<boolean>(false);
 
-  const [hoveredMember, setHoveredMember] = useState<number | null>(null);
-
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 100);
     return () => clearTimeout(timer);
@@ -86,7 +83,7 @@ const About: React.FC = () => {
       position: "Customer Success Manager",
       image:
         "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
-      bio: "Customer advocate focused on delivering exceptional service experiences and building relationships.",
+      bio: "Customer advocate focused on delivering exceptional service experiences.",
       social: { linkedin: "#", twitter: "#", email: "david@parcelex.com" },
     },
   ];
@@ -130,7 +127,7 @@ const About: React.FC = () => {
   ];
 
   return (
-    <div className="relative mt-10 min-h-screen overflow-hidden bg-gradient-to-br from-blue-50 via-cyan-50 to-blue-100">
+    <div className="relative mt-10 min-h-screen overflow-hidden bg-linear-to-br from-blue-50 via-cyan-50 to-blue-100">
       <style>{`
         @keyframes fadeInUp {
           from { opacity: 0; transform: translateY(60px); }
@@ -181,11 +178,6 @@ const About: React.FC = () => {
           animation: shimmer 2s infinite;
         }
         .rotate-slow { animation: rotate 20s linear infinite; }
-        .glass {
-          background: rgba(255, 255, 255, 0.3);
-          backdrop-filter: blur(16px);
-          border: 1px solid rgba(255, 255, 255, 0.4);
-        }
         .gradient-text {
           background: linear-gradient(135deg, #3b82f6, #06b6d4, #0ea5e9);
           -webkit-background-clip: text;
@@ -195,17 +187,17 @@ const About: React.FC = () => {
       `}</style>
 
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="float absolute top-20 left-10 h-64 w-64 rounded-full bg-gradient-to-r from-blue-300 to-cyan-300 opacity-20 blur-3xl"></div>
+        <div className="float absolute top-20 left-10 h-64 w-64 rounded-full bg-linear-to-r from-blue-300 to-cyan-300 opacity-20 blur-3xl"></div>
         <div
-          className="float absolute top-60 right-20 h-48 w-48 rounded-full bg-gradient-to-r from-cyan-300 to-blue-400 opacity-20 blur-3xl"
+          className="float absolute top-60 right-20 h-48 w-48 rounded-full bg-linear-to-r from-cyan-300 to-blue-400 opacity-20 blur-3xl"
           style={{ animationDelay: "2s" }}
         ></div>
         <div
-          className="float absolute bottom-40 left-32 h-72 w-72 rounded-full bg-gradient-to-r from-blue-200 to-cyan-200 opacity-15 blur-3xl"
+          className="float absolute bottom-40 left-32 h-72 w-72 rounded-full bg-linear-to-r from-blue-200 to-cyan-200 opacity-15 blur-3xl"
           style={{ animationDelay: "4s" }}
         ></div>
         <div
-          className="float absolute top-1/2 right-1/4 h-40 w-40 rounded-full bg-gradient-to-r from-cyan-300 to-blue-300 opacity-20 blur-3xl"
+          className="float absolute top-1/2 right-1/4 h-40 w-40 rounded-full bg-linear-to-r from-cyan-300 to-blue-300 opacity-20 blur-3xl"
           style={{ animationDelay: "1s" }}
         ></div>
       </div>
@@ -215,12 +207,11 @@ const About: React.FC = () => {
           isVisible ? "opacity-100" : "opacity-0"
         }`}
       >
-        {/* Section 1 */}
         <div className="fade-in-up mb-24 text-center">
           <div className="mb-8 flex items-center justify-center gap-2 md:gap-4">
             <div className="relative">
-              <div className="absolute inset-0 animate-pulse rounded-3xl bg-gradient-to-r from-blue-500 to-cyan-500 opacity-50 blur-xl"></div>
-              <div className="glow relative rounded-3xl bg-gradient-to-br from-blue-500 via-cyan-500 to-blue-600 p-5">
+              <div className="absolute inset-0 animate-pulse rounded-3xl bg-linear-to-r from-blue-500 to-cyan-500 opacity-50 blur-xl"></div>
+              <div className="glow relative rounded-3xl bg-linear-to-br from-blue-500 via-cyan-500 to-blue-600 p-5">
                 <Sparkles className="h-4 w-4 text-white md:h-14 md:w-14" />
               </div>
             </div>
@@ -242,7 +233,7 @@ const About: React.FC = () => {
             ].map((tag, index) => (
               <span
                 key={index}
-                className="glass flex items-center gap-2 rounded-full px-6 py-3 text-lg font-semibold text-blue-700 shadow-lg transition-transform duration-300 hover:scale-105"
+                className="flex items-center gap-2 rounded-full border-2 border-blue-200 bg-white/40 px-6 py-3 text-lg font-semibold text-blue-700 shadow-lg backdrop-blur-lg transition-transform duration-300 hover:scale-103 hover:border-blue-400 hover:bg-white/80"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <tag.icon className="h-5 w-5" />
@@ -251,20 +242,20 @@ const About: React.FC = () => {
             ))}
           </div>
         </div>
-        {/*  */}
+
         <div className="mb-24 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
           {stats.map((stat, index) => (
             <div
               key={stat.id}
-              className="group scale-in relative"
+              className="group scale-in relative transition-transform duration-300 hover:scale-105"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-blue-400 to-cyan-500 opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-30"></div>
-              <div className="glass relative rounded-3xl p-8 text-center shadow-xl transition-all duration-300 hover:scale-105">
-                <div className="pulse mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-500 shadow-lg">
+              <div className="absolute inset-0 rounded-3xl bg-linear-to-br from-blue-400 to-cyan-500 opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-30"></div>
+              <div className="relative rounded-3xl border-2 border-blue-200 p-8 text-center shadow-xl transition-all duration-300 hover:border-blue-300">
+                <div className="pulse mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-linear-to-br from-blue-500 to-cyan-500 shadow-lg">
                   <stat.icon className="h-8 w-8 text-white" />
                 </div>
-                <h3 className="mb-2 bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-4xl font-black text-transparent">
+                <h3 className="mb-2 bg-linear-to-r from-blue-600 to-cyan-600 bg-clip-text text-4xl font-black text-transparent">
                   {stat.number}
                 </h3>
                 <p className="font-semibold text-gray-700">{stat.label}</p>
@@ -272,13 +263,13 @@ const About: React.FC = () => {
             </div>
           ))}
         </div>
-        {/* our mission  */}
+
         <div className="mb-24">
           <div className="glass slide-in-left rounded-3xl p-12 shadow-2xl">
             <div className="grid items-center gap-12 lg:grid-cols-2">
               <div>
                 <h2 className="mb-8 flex items-center gap-4 text-5xl font-bold text-gray-800">
-                  <div className="rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-500 p-3">
+                  <div className="rounded-2xl bg-linear-to-br from-blue-500 to-cyan-500 p-3">
                     <Target className="h-10 w-10 text-white" />
                   </div>
                   <span className="gradient-text">Our Mission</span>
@@ -303,7 +294,7 @@ const About: React.FC = () => {
                   ].map((value, index) => (
                     <div
                       key={index}
-                      className="flex items-center gap-2 rounded-full border-2 border-blue-200 bg-gradient-to-r from-blue-50 to-cyan-50 px-4 py-2 transition-transform duration-300 hover:scale-105"
+                      className="flex items-center gap-2 rounded-full border-2 border-blue-200 bg-linear-to-r from-blue-50 to-cyan-50 px-4 py-2 transition-transform duration-300 hover:scale-105 hover:border-blue-300 hover:from-white/80 hover:to-white/80"
                     >
                       <value.icon className="h-5 w-5 text-blue-600" />
                       <span className="font-semibold text-blue-700">
@@ -314,8 +305,8 @@ const About: React.FC = () => {
                 </div>
               </div>
               <div className="relative">
-                <div className="rotate-slow absolute inset-0 rounded-3xl bg-gradient-to-br from-blue-400 to-cyan-500 opacity-30 blur-2xl"></div>
-                <div className="relative flex h-96 w-full items-center justify-center overflow-hidden rounded-3xl bg-gradient-to-br from-blue-500 via-cyan-500 to-blue-600 shadow-2xl">
+                <div className="rotate-slow absolute inset-0 rounded-3xl bg-linear-to-br from-blue-400 to-cyan-500 opacity-30 blur-2xl"></div>
+                <div className="relative flex h-96 w-full items-center justify-center overflow-hidden rounded-3xl bg-linear-to-br from-blue-500 via-cyan-500 to-blue-600 shadow-2xl">
                   <div className="shimmer absolute inset-0"></div>
                   <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] opacity-10"></div>
                   <Truck className="float relative z-10 h-32 w-32 text-white/90" />
@@ -324,7 +315,7 @@ const About: React.FC = () => {
             </div>
           </div>
         </div>
-        {/* core  values */}
+
         <div className="mb-24">
           <h2 className="fade-in-up mb-4 text-center text-5xl font-bold">
             <span className="gradient-text">Our Core Values</span>
@@ -341,11 +332,11 @@ const About: React.FC = () => {
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <div
-                  className={`absolute inset-0 bg-gradient-to-r ${value.color} rounded-3xl opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-40`}
+                  className={`absolute inset-0 bg-linear-to-r ${value.color} rounded-3xl opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-40`}
                 ></div>
-                <div className="glass relative rounded-3xl p-8 text-center shadow-xl transition-all duration-300 hover:-translate-y-2 hover:scale-105">
+                <div className="relative rounded-3xl border-2 border-blue-200 p-8 text-center shadow-xl transition-all duration-300 hover:-translate-y-2 hover:scale-103 hover:border-blue-300">
                   <div
-                    className={`h-20 w-20 bg-gradient-to-br ${value.color} mx-auto mb-6 flex items-center justify-center rounded-3xl shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:rotate-6`}
+                    className={`h-20 w-20 bg-linear-to-br ${value.color} mx-auto mb-6 flex items-center justify-center rounded-3xl shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:rotate-6`}
                   >
                     <value.icon className="h-10 w-10 text-white" />
                   </div>
@@ -360,7 +351,7 @@ const About: React.FC = () => {
             ))}
           </div>
         </div>
-        {/*  team   */}
+
         <div className="mb-24">
           <h2 className="fade-in-up mb-4 text-center text-5xl font-bold">
             <span className="gradient-text">Meet Our Leadership</span>
@@ -369,25 +360,25 @@ const About: React.FC = () => {
             The visionaries driving innovation and excellence in global
             logistics
           </p>
+
           <div className="grid gap-8 lg:grid-cols-2 xl:grid-cols-4">
             {teamMembers.map((member, index) => (
               <div
                 key={member.id}
-                className="group scale-in relative"
+                className="group scale-in relative transition-transform duration-500"
                 style={{ animationDelay: `${index * 0.1}s` }}
-                onMouseEnter={() => setHoveredMember(member.id)}
-                onMouseLeave={() => setHoveredMember(null)}
               >
-                <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-blue-400 to-cyan-500 opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-30"></div>
-                <div className="glass relative cursor-pointer rounded-3xl p-6 text-center shadow-xl transition-all duration-500 hover:-translate-y-4 hover:scale-105">
+                <div className="pointer-events-none absolute inset-0 rounded-3xl bg-linear-to-br from-blue-400 to-cyan-500 opacity-35 blur-xl transition-opacity duration-500 group-hover:opacity-0"></div>
+
+                <div className="relative z-10 cursor-pointer rounded-3xl border-2 border-blue-200 bg-white/80 p-6 text-center shadow-xl backdrop-blur-md transition-all duration-500 group-hover:border-blue-400 hover:scale-105">
                   <div className="relative mb-6">
-                    <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 opacity-50 blur-md transition-opacity duration-300 group-hover:opacity-70"></div>
+                    <div className="pointer-events-none absolute inset-0 rounded-full bg-linear-to-br from-blue-500 to-cyan-500 opacity-40 blur-md transition-opacity duration-300 group-hover:opacity-70"></div>
                     <img
                       src={member.image || "/placeholder.svg"}
                       alt={member.name}
                       className="relative mx-auto h-32 w-32 rounded-full border-4 border-white object-cover shadow-xl transition-transform duration-300 group-hover:scale-110"
                     />
-                    <div className="absolute -right-2 -bottom-2 flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 shadow-lg">
+                    <div className="absolute -right-2 -bottom-2 flex h-10 w-10 items-center justify-center rounded-full bg-linear-to-br from-blue-500 to-cyan-500 shadow-lg">
                       <Star className="h-5 w-5 fill-white text-white" />
                     </div>
                   </div>
@@ -399,13 +390,7 @@ const About: React.FC = () => {
                     {member.position}
                   </p>
 
-                  <div
-                    className={`transition-all duration-300 ${
-                      hoveredMember === member.id
-                        ? "max-h-40 opacity-100"
-                        : "max-h-20 overflow-hidden opacity-70"
-                    }`}
-                  >
+                  <div>
                     <p className="mb-4 text-sm leading-relaxed text-gray-600">
                       {member.bio}
                     </p>
@@ -413,17 +398,17 @@ const About: React.FC = () => {
 
                   <div className="flex justify-center gap-3">
                     {member.social.linkedin && (
-                      <div className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-blue-600 shadow-md transition-transform duration-300 hover:scale-110">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-linear-to-br from-blue-500 to-blue-600 shadow-md transition-transform duration-300 hover:scale-110">
                         <Linkedin className="h-5 w-5 text-white" />
                       </div>
                     )}
                     {member.social.twitter && (
-                      <div className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-gradient-to-br from-cyan-500 to-blue-500 shadow-md transition-transform duration-300 hover:scale-110">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-linear-to-br from-cyan-500 to-blue-500 shadow-md transition-transform duration-300 hover:scale-110">
                         <Twitter className="h-5 w-5 text-white" />
                       </div>
                     )}
                     {member.social.email && (
-                      <div className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-full bg-gradient-to-br from-blue-600 to-cyan-600 shadow-md transition-transform duration-300 hover:scale-110">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-full bg-linear-to-br from-blue-600 to-cyan-600 shadow-md transition-transform duration-300 hover:scale-110">
                         <Mail className="h-5 w-5 text-white" />
                       </div>
                     )}
@@ -431,37 +416,6 @@ const About: React.FC = () => {
                 </div>
               </div>
             ))}
-          </div>
-        </div>
-
-        {/* cta */}
-        <div className="fade-in-up text-center">
-          <div className="relative">
-            <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-blue-400 to-cyan-500 opacity-20 blur-2xl"></div>
-            <div className="glass relative rounded-3xl p-12 shadow-2xl">
-              <div className="mb-6 flex justify-center">
-                <div className="rounded-3xl bg-gradient-to-br from-blue-500 to-cyan-500 p-4 shadow-xl">
-                  <Rocket className="h-12 w-12 text-white" />
-                </div>
-              </div>
-              <h2 className="mb-6 text-5xl font-bold">
-                <span className="gradient-text">
-                  Ready to Experience Excellence?
-                </span>
-              </h2>
-              <p className="mx-auto mb-8 max-w-3xl text-xl leading-relaxed font-medium text-gray-700">
-                Join thousands of satisfied customers who trust ParcelEx for
-                their delivery needs. Let's make your next shipment
-                extraordinary.
-              </p>
-              <div className="flex flex-wrap justify-center gap-6">
-                <button className="flex transform items-center gap-3 rounded-2xl bg-gradient-to-r from-blue-500 via-cyan-500 to-blue-600 px-10 py-5 text-xl font-bold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:from-blue-600 hover:via-cyan-600 hover:to-blue-700 hover:shadow-2xl">
-                  <Zap className="h-6 w-6" />
-                  Get Started Today
-                </button>
-                <PrimaryButton text="Contact Us"></PrimaryButton>
-              </div>
-            </div>
           </div>
         </div>
       </div>
