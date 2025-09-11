@@ -20,19 +20,16 @@ const HeroSection = () => {
 
   return (
     <section
-      className="relative flex min-h-[90vh] items-center overflow-hidden bg-cover bg-center bg-no-repeat"
+      className="relative mt-10 flex min-h-[90vh] items-center overflow-hidden bg-cover bg-center bg-no-repeat"
       style={{
         backgroundImage: "url('/hero-delivery-background.jpg')",
       }}
     >
-      <div className="absolute inset-0 bg-linear-to-b from-black/30 via-black/40 to-black/30"></div>
-
-      <div className="absolute top-32 left-20 h-40 w-40 animate-pulse rounded-full bg-cyan-400/30 blur-3xl" />
-      <div className="absolute right-16 bottom-28 h-52 w-52 animate-bounce rounded-full bg-sky-500/20 blur-3xl" />
+      <div className="absolute inset-0 bg-linear-to-b from-black/5 via-black/10 to-black/10"></div>
 
       <div className="relative z-20 container mx-auto px-4 py-24 text-center md:py-32">
         <motion.div
-          className="mx-auto max-w-4xl rounded-3xl border border-white/10 bg-white/10 p-10 shadow-[0_8px_60px_rgba(6,182,212,0.2)] backdrop-blur-lg"
+          className="mx-auto max-w-4xl rounded-3xl border border-white/30 bg-black/5 p-10 shadow-[0_8px_60px_rgba(6,182,212,0.2)] backdrop-blur-2xl"
           initial="initial"
           animate="animate"
           variants={staggerContainer}
@@ -45,7 +42,7 @@ const HeroSection = () => {
 
           <motion.h1
             variants={fadeInUp}
-            className="mb-6 bg-linear-to-r from-cyan-400 via-sky-300 to-blue-400 bg-clip-text pb-4 text-5xl font-extrabold text-transparent drop-shadow-lg md:text-6xl lg:text-7xl"
+            className="mb-6 bg-linear-to-r from-blue-100 via-cyan-200 to-blue-100 bg-clip-text stroke-red-400 stroke-1 pb-4 text-5xl font-extrabold text-transparent drop-shadow-lg md:text-6xl lg:text-7xl"
           >
             Deliver Anything, Anywhere, Anytime
           </motion.h1>
