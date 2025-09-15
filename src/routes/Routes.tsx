@@ -4,7 +4,7 @@ import About from "@/pages/About/About";
 import Login from "@/pages/Auth/Login";
 import Register from "@/pages/Auth/Register";
 import Contact from "@/pages/Contact/Contact";
-import DashboardLayout from "@/pages/Dashboard/DashboardLayout";
+import DashboardLayout from "@/layout/DashboardLayout";
 import Home from "@/pages/HomePage/Home";
 import type { TRole } from "@/types";
 import { generateRoutes } from "@/utils/generateRoutes";
