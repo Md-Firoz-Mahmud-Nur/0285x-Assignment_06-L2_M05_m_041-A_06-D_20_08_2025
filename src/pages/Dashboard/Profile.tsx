@@ -7,6 +7,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { useUserInfoQuery } from "@/redux/Auth/auth.api";
 import { motion } from "framer-motion";
 import { CheckCircle, Crown, Mail, Shield, User, XCircle } from "lucide-react";
+import { EditPassword } from "./EditPasswordModal";
 
 const Profile = () => {
   const { data: users, isLoading } = useUserInfoQuery(undefined);
@@ -24,9 +25,7 @@ const Profile = () => {
         transition={{ duration: 0.6 }}
         className="w-full max-w-2xl"
       >
-        <Card className="relative overflow-hidden rounded-3xl border-0 bg-white/80 shadow-2xl backdrop-blur-sm">
-          <div className="absolute inset-0 bg-linear-to-br from-blue-500/5 via-transparent to-cyan-500/5" />
-
+        <Card className="relative overflow-hidden rounded-3xl border-2 border-blue-200 bg-white/80 py-0 shadow-2xl backdrop-blur-sm">
           <CardHeader className="relative z-10 rounded-t-2xl bg-linear-to-b from-blue-50 via-white to-cyan-50 pt-14 pb-10 shadow-sm">
             <motion.div
               initial={{ y: -20, opacity: 0 }}
@@ -173,7 +172,10 @@ const Profile = () => {
               className="border-t border-gray-200 pt-6"
             >
               <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-                <div className="w-full sm:w-auto"> EditPassword</div>
+                <div className="w-full sm:w-auto">
+                  {" "}
+                  <EditPassword></EditPassword>
+                </div>
               </div>
             </motion.div>
           </CardContent>
