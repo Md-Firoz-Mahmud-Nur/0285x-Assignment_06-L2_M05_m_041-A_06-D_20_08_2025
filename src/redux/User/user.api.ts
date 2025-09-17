@@ -10,7 +10,26 @@ export const userApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["USER"],
     }),
+    getAllUser: builder.query({
+      query: () => ({
+        url: "/user/all-users",
+        method: "GET",
+      }),
+      providesTags: ["USERS"],
+    }),
+    profileUpdate: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/user/${id}`,
+        method: "PATCH",
+        data,
+      }),
+      invalidatesTags: ["USER", "USERS"],
+    }),
   }),
 });
 
-export const { useUpdatePasswordMutation } = userApi;
+export const {
+  useUpdatePasswordMutation,
+  useGetAllUserQuery,
+  useProfileUpdateMutation,
+} = userApi;
