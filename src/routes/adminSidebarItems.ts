@@ -1,6 +1,7 @@
+import AllParcels from "@/pages/Dashboard/Admin/AllParcels";
 import AllUser from "@/pages/Dashboard/Admin/AllUser";
 import Profile from "@/pages/Dashboard/Profile";
-import { IconListDetails } from "@tabler/icons-react";
+import { IconFolder, IconListDetails } from "@tabler/icons-react";
 import { User } from "lucide-react";
 export const adminSidebarItems = [
   {
@@ -17,6 +18,12 @@ export const adminSidebarItems = [
         url: "/admin/all-users",
         component: AllUser,
         icon: IconListDetails,
+      },
+      {
+        title: "All Parcel",
+        url: "/admin/all-parcel",
+        component: AllParcels,
+        icon: IconFolder,
       },
     ],
   },
