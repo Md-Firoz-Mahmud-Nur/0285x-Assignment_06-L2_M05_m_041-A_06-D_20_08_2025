@@ -11,7 +11,7 @@ import { generateRoutes } from "@/utils/generateRoutes";
 import { withAuth } from "@/utils/withAuth";
 import { createBrowserRouter, Navigate } from "react-router";
 import { adminSidebarItems } from "./adminSidebarItems";
-import { senderSidebarItems } from "./senderaSideBar";
+import { senderSidebarItems } from "./senderSideBar";
 
 export const router = createBrowserRouter([
   {

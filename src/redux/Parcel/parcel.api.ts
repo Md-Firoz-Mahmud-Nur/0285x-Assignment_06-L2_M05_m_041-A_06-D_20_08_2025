@@ -20,8 +20,18 @@ export const parcelAPi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["PARCEL", "PARCELS"],
     }),
+    getMyParcel: builder.query({
+      query: () => ({
+        url: "/parcel/mine",
+        method: "GET",
+      }),
+      providesTags: ["PARCEL"],
+    }),
   }),
 });
 
-export const { useGetAllParcelQuery, useUpdateParcelStatusMutation } =
-  parcelAPi;
+export const {
+  useGetAllParcelQuery,
+  useUpdateParcelStatusMutation,
+  useGetMyParcelQuery,
+} = parcelAPi;
