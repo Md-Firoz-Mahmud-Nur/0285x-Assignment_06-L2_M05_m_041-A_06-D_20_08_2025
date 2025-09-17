@@ -19,6 +19,7 @@ const Profile = () => {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-linear-to-br from-blue-50 via-white to-cyan-50 p-4">
+      <div className="float absolute top-20 left-10 h-32 w-32 rounded-full bg-linear-to-r from-blue-300 to-cyan-300 opacity-20"></div>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -172,7 +173,7 @@ const Profile = () => {
               className="border-t border-gray-200 pt-6"
             >
               <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
-                <div className="w-full sm:w-auto">
+                <div className="flex w-full justify-center">
                   {" "}
                   <EditPassword></EditPassword>
                 </div>
