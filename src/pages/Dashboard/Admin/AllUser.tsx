@@ -13,7 +13,10 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { useGetAllUserQuery, useProfileUpdateMutation } from "@/redux/User/user.api";
+import {
+  useGetAllUserQuery,
+  useProfileUpdateMutation,
+} from "@/redux/User/user.api";
 
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -327,19 +330,19 @@ const AllUser = () => {
         }
       `}</style>
 
-      <section className="relative min-h-screen overflow-hidden bg-gradient-to-br from-blue-50 via-cyan-50 to-blue-100 p-6">
+      <section className="relative min-h-screen overflow-hidden bg-linear-to-br from-blue-50 via-cyan-50 to-blue-100 p-6">
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
-          <div className="float absolute top-20 left-10 h-40 w-40 rounded-full bg-gradient-to-r from-blue-300 to-cyan-300 opacity-20"></div>
+          <div className="float absolute top-20 left-10 h-40 w-40 rounded-full bg-linear-to-r from-blue-300 to-cyan-300 opacity-20"></div>
           <div
-            className="float absolute top-60 right-20 h-32 w-32 rounded-full bg-gradient-to-r from-cyan-300 to-blue-300 opacity-20"
+            className="float absolute top-60 right-20 h-32 w-32 rounded-full bg-linear-to-r from-cyan-300 to-blue-300 opacity-20"
             style={{ animationDelay: "2s" }}
           ></div>
           <div
-            className="float absolute bottom-32 left-1/4 h-48 w-48 rounded-full bg-gradient-to-r from-blue-200 to-cyan-200 opacity-15"
+            className="float absolute bottom-32 left-1/4 h-48 w-48 rounded-full bg-linear-to-r from-blue-200 to-cyan-200 opacity-15"
             style={{ animationDelay: "4s" }}
           ></div>
           <div
-            className="float absolute top-1/3 right-1/3 h-36 w-36 rounded-full bg-gradient-to-r from-cyan-300 to-blue-300 opacity-20"
+            className="float absolute top-1/3 right-1/3 h-36 w-36 rounded-full bg-linear-to-r from-cyan-300 to-blue-300 opacity-20"
             style={{ animationDelay: "1s" }}
           ></div>
         </div>
@@ -347,7 +350,7 @@ const AllUser = () => {
         <div className="relative z-10 mx-auto max-w-7xl">
           <div className="fade-in-up mb-12 text-center">
             <div className="mb-6 flex items-center justify-center gap-4">
-              <div className="glow rounded-3xl bg-gradient-to-r from-blue-500 to-cyan-500 p-4 shadow-xl">
+              <div className="glow rounded-3xl bg-linear-to-r from-blue-500 to-cyan-500 p-4 shadow-xl">
                 <svg
                   className="h-10 w-10 text-white"
                   fill="none"
@@ -362,7 +365,7 @@ const AllUser = () => {
                   />
                 </svg>
               </div>
-              <h1 className="bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-800 bg-clip-text text-6xl font-black text-transparent">
+              <h1 className="bg-linear-to-r from-blue-600 via-cyan-600 to-blue-800 bg-clip-text text-6xl font-black text-transparent">
                 All Users
               </h1>
             </div>
@@ -440,7 +443,7 @@ const AllUser = () => {
                           onClick={() => handleUpdateStatus(user._id, false)}
                           variant="secondary"
                           disabled={user.isActive === "ACTIVE"}
-                          className={`transform cursor-pointer rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-lg transition-all duration-300 hover:scale-105 hover:from-blue-600 hover:to-cyan-600 hover:shadow-2xl ${
+                          className={`transform cursor-pointer rounded-2xl bg-linear-to-r from-blue-500 to-cyan-500 text-white shadow-lg transition-all duration-300 hover:scale-105 hover:from-blue-600 hover:to-cyan-600 hover:shadow-2xl ${
                             user.isActive === "ACTIVE"
                               ? "cursor-not-allowed opacity-50 hover:scale-100 hover:shadow-none"
                               : ""
@@ -453,7 +456,7 @@ const AllUser = () => {
                           onClick={() => handleUpdateStatus(user._id, true)}
                           variant="secondary"
                           disabled={user.isActive === "BLOCKED"}
-                          className={`transform cursor-pointer rounded-2xl bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-lg transition-all duration-300 hover:scale-105 hover:from-red-400 hover:to-pink-400 hover:shadow-2xl ${
+                          className={`transform cursor-pointer rounded-2xl bg-linear-to-r from-blue-500 to-cyan-500 text-white shadow-lg transition-all duration-300 hover:scale-105 hover:from-red-400 hover:to-pink-400 hover:shadow-2xl ${
                             user.isActive === "BLOCKED"
                               ? "cursor-not-allowed opacity-50 hover:scale-100 hover:shadow-none"
                               : ""
@@ -466,21 +469,6 @@ const AllUser = () => {
                   </TableRow>
                 ))}
               </TableBody>
-
-              {/* <TableFooter className="user-table-footer">
-                <TableRow>
-                  <TableCell colSpan={6}>
-                    <CommonPagination
-                      currentPage={meta.page}
-                      totalPage={meta.totalPage}
-                      onPageChange={(page) => {
-                        setCurrentPage(page);
-                        window.location.hash = `/admin/all-user/${page}`;
-                      }}
-                    />
-                  </TableCell>
-                </TableRow>
-              </TableFooter> */}
             </Table>
           </div>
         </div>
