@@ -27,6 +27,13 @@ export const parcelAPi = baseApi.injectEndpoints({
       }),
       providesTags: ["PARCEL"],
     }),
+    createParcel: builder.mutation({
+      query: (parcelInfo) => ({
+        url: "/parcel/create-parcel",
+        method: "POST",
+        data: parcelInfo,
+      }),
+    }),
   }),
 });
 
@@ -34,4 +41,5 @@ export const {
   useGetAllParcelQuery,
   useUpdateParcelStatusMutation,
   useGetMyParcelQuery,
+  useCreateParcelMutation,
 } = parcelAPi;

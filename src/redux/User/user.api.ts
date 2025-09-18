@@ -25,6 +25,12 @@ export const userApi = baseApi.injectEndpoints({
       }),
       invalidatesTags: ["USER", "USERS"],
     }),
+    getAllReceiver: builder.query({
+      query: () => ({
+        url: "/user/all-receiver",
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -32,4 +38,5 @@ export const {
   useUpdatePasswordMutation,
   useGetAllUserQuery,
   useProfileUpdateMutation,
+  useGetAllReceiverQuery
 } = userApi;
