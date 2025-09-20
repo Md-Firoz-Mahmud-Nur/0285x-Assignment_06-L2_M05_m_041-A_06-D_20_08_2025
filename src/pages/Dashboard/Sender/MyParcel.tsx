@@ -92,7 +92,6 @@ const MyParcel = () => {
         }
 
         .my-parcels-cell {
-          padding: 16px 8px !important;
           vertical-align: middle !important;
           color:#1e293b;
           font-weight:500;
@@ -210,7 +209,6 @@ const MyParcel = () => {
         /* Responsive design for mobile */
         @media (max-width: 768px) {
           .my-parcels-cell {
-            padding: 12px 10px !important;
             font-size: 13px;
           }
           .my-parcels-header th {
