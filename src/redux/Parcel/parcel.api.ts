@@ -34,6 +34,14 @@ export const parcelAPi = baseApi.injectEndpoints({
         data: parcelInfo,
       }),
     }),
+    getDeliveryHistory: builder.query({
+      query: () => ({
+        url: `/parcel/incoming`,
+        method: "GET",
+        credentials: "include",
+      }),
+      providesTags: ["PARCELS"],
+    }),
   }),
 });
 
@@ -42,4 +50,5 @@ export const {
   useUpdateParcelStatusMutation,
   useGetMyParcelQuery,
   useCreateParcelMutation,
+  useGetDeliveryHistoryQuery,
 } = parcelAPi;
