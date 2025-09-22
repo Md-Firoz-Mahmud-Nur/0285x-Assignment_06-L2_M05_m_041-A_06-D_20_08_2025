@@ -42,6 +42,20 @@ export const parcelAPi = baseApi.injectEndpoints({
       }),
       providesTags: ["PARCELS"],
     }),
+    userDetails: builder.query({
+      query: (id: string) => ({
+        url: `/user/${id}`,
+        method: "GET",
+      }),
+    }),
+    getIncomingParcel: builder.query({
+      query: (params) => ({
+        url: "/parcel/incoming",
+        method: "GET",
+        params: params,
+      }),
+      providesTags: ["PARCEL"],
+    }),
   }),
 });
 
@@ -51,4 +65,6 @@ export const {
   useGetMyParcelQuery,
   useCreateParcelMutation,
   useGetDeliveryHistoryQuery,
+  useUserDetailsQuery,
+  useGetIncomingParcelQuery,
 } = parcelAPi;
