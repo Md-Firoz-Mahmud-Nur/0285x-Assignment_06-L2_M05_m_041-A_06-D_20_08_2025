@@ -1,4 +1,5 @@
 import Profile from "@/pages/Dashboard/Profile";
+import DeliveryHistory from "@/pages/Dashboard/Receiver/DeliveryHistory";
 import IncomingParcel from "@/pages/Dashboard/Receiver/IncomingParcel";
 import Tracking from "@/pages/Dashboard/Receiver/Tracking";
 import { IconListDetails } from "@tabler/icons-react";
@@ -19,6 +20,12 @@ export const receiverSidebarItems = [
         url: "/receiver/incoming-parcel",
         icon: IconListDetails,
         component: IncomingParcel,
+      },
+      {
+        title: "Delivery Parcel",
+        url: "/receiver/deceived-parcel",
+        icon: IconListDetails,
+        component: DeliveryHistory,
       },
       {
         title: "Overview",
