@@ -76,7 +76,6 @@ const Navbar = () => {
   return (
     <section className="dark:via-background fixed top-0 right-0 left-0 z-50 border-b border-blue-100 bg-linear-to-r from-blue-100 via-cyan-100 to-sky-50 py-4 backdrop-blur-sm dark:border-blue-800/30 dark:from-blue-950 dark:to-cyan-950/50">
       <div className="container mx-auto">
-        {/* Desktop Menu */}
         <nav className="hidden items-center justify-between lg:flex">
           <div className="mx-4 flex items-center gap-8">
             <NavLink to="/">
@@ -183,7 +182,6 @@ const Navbar = () => {
           </div>
         </nav>
 
-        {/* Mobile */}
         <div className="block px-2 lg:hidden">
           <div className="flex items-center justify-between">
             <NavLink to="/">

@@ -328,18 +328,6 @@ const AllParcels = () => {
                   </TableRow>
                 ))}
               </TableBody>
-
-              {/* <TableFooter className="all-table-footer">
-                <TableRow>
-                  <TableCell colSpan={10}>
-                    <CommonPagination
-                      currentPage={meta?.page}
-                      totalPage={meta?.totalPage}
-                      onPageChange={(p) => setCurrentPage(p)}
-                    />
-                  </TableCell>
-                </TableRow>
-              </TableFooter> */}
             </Table>
           </div>
         </div>

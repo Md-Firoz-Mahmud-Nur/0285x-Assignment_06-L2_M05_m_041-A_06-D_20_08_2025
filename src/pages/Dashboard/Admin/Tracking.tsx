@@ -417,7 +417,6 @@ const Tracking = () => {
             </div>
             <div className="col-span-1">
               <div className="mb-12 grid grid-cols-1 gap-6">
-                {/* Pie Chart */}
                 <div className="chart-container bg-gray-100">
                   <div className="chart-title">
                     Delivery Status Distribution

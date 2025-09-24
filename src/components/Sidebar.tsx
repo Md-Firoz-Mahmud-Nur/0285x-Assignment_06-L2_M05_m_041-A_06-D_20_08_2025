@@ -15,7 +15,6 @@ import {
 } from "@/components/ui/sidebar";
 import { useUserInfoQuery } from "@/redux/Auth/auth.api";
 import { getSidebarItems } from "@/utils/getSidebarItems";
-// import { getSidebarItems } from "@/utils/getSidebarItems";
 import { motion } from "framer-motion";
 import {
   BarChart3,

@@ -63,7 +63,6 @@ const AllUser = () => {
   };
 
   const users = data?.data || [];
-  // const meta = data?.meta || { page: 1, totalPage: 1, total: 0 };
 
   if (isLoading) return <Loader />;
 
@@ -385,7 +384,6 @@ const AllUser = () => {
             </div>
           </div>
 
-          {/* Enhanced Table */}
           <div className="user-table-container scale-in">
             <Table className="overflow-hidden">
               <TableCaption className="user-table-caption">

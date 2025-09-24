@@ -33,7 +33,6 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
 
-// Validation Schema
 const parcelSchema = z.object({
   status: z.string().min(1, "Select any status"),
 });
@@ -42,7 +41,6 @@ export function EditParcelStatus({ singleParcel, disabled = false }: any) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [editParcel] = useUpdateParcelStatusMutation();
-  // console.log("Single Parcel from EditParcelStatus: ", singleParcel);
   const form = useForm<z.infer<typeof parcelSchema>>({
     resolver: zodResolver(parcelSchema),
     defaultValues: {
@@ -50,8 +48,6 @@ export function EditParcelStatus({ singleParcel, disabled = false }: any) {
     },
   });
 
-  // console.log("Submitting parcel update:", singleParcel);
-  // console.log("Parcel ID:", singleParcel?.trackingId);
 
   const onSubmit = async (data: any) => {
     if (!singleParcel?.trackingId) return toast.error("Parcel ID missing");
@@ -80,7 +76,7 @@ export function EditParcelStatus({ singleParcel, disabled = false }: any) {
       <DialogTrigger asChild disabled={disabled}>
         <Button
           className="rounded-full bg-linear-to-r from-emerald-500 to-teal-400 p-3 shadow-lg transition-transform duration-300 hover:scale-110 hover:shadow-emerald-400/50 disabled:cursor-not-allowed disabled:from-red-400 disabled:to-red-500 disabled:opacity-40"
-          disabled={disabled} // disable button visually & functionally
+          disabled={disabled} 
           title={
             disabled
               ? "Cannot edit when status is Delivered/Cancelled"

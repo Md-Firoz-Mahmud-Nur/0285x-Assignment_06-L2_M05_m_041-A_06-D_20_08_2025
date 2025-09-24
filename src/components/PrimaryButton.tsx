@@ -1,15 +1,10 @@
 import React from "react";
 
 interface PrimaryButtonProps {
-  /** বাটনের টেক্সট */
   text?: string;
-  /** ক্লিক ইভেন্ট */
   onClick?: () => void;
-  /** বাটনের টাইপ — button / submit / reset */
   type?: "button" | "submit" | "reset";
-  /** অতিরিক্ত ক্লাস যোগ করার জন্য */
   className?: string;
-  /** বাটন নিষ্ক্রিয় (disabled) করতে চাইলে */
   disabled?: boolean;
 }
 
