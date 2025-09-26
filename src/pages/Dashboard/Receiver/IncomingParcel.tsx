@@ -14,7 +14,6 @@ import {
   useUserDetailsQuery,
 } from "@/redux/Parcel/parcel.api";
 
-import { useEffect, useState } from "react";
 import { ParcelConfirmModal } from "./ParcelConfirmModal";
 export const SenderName = ({ userId }: { userId: string }) => {
   const { data, isLoading } = useUserDetailsQuery(userId);
@@ -27,28 +26,7 @@ export const SenderName = ({ userId }: { userId: string }) => {
   return <span className="incoming-sender-badge">👤 {userName}</span>;
 };
 const IncomingParcel = () => {
-  const [currentPage, setCurrentPage] = useState(0);
-  const [limit] = useState(5);
-
-  useEffect(() => {
-    const handleHashChange = () => {
-      const pageFromHash = Number(window.location.hash.split("/")[2]) || 0;
-      setCurrentPage(pageFromHash);
-    };
-
-    handleHashChange();
-
-    window.addEventListener("hashchange", handleHashChange);
-
-    return () => {
-      window.removeEventListener("hashchange", handleHashChange);
-    };
-  }, []);
-
-  const { data, isLoading } = useGetIncomingParcelQuery({
-    page: currentPage,
-    limit,
-  });
+  const { data, isLoading } = useGetIncomingParcelQuery({});
 
   const parcel = data?.data?.data;
 

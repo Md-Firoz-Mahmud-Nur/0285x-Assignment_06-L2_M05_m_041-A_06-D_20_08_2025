@@ -18,30 +18,10 @@ import {
   useProfileUpdateMutation,
 } from "@/redux/User/user.api";
 
-import { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 const AllUser = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-
-  useEffect(() => {
-    const handleHashChange = () => {
-      const pageFromHash = Number(window.location.hash.split("/")[2]) || 1;
-      setCurrentPage(pageFromHash);
-    };
-
-    handleHashChange();
-    window.addEventListener("hashchange", handleHashChange);
-
-    return () => {
-      window.removeEventListener("hashchange", handleHashChange);
-    };
-  }, []);
-
-  const { data, isLoading } = useGetAllUserQuery({
-    page: currentPage,
-    limit: 10,
-  });
+  const { data, isLoading } = useGetAllUserQuery({});
 
   const [profileUpdate] = useProfileUpdateMutation();
 

@@ -14,7 +14,6 @@ import {
 } from "@/components/ui/table";
 
 import { useGetMyParcelQuery } from "@/redux/Parcel/parcel.api";
-import { useEffect, useState } from "react";
 import { ParcelDeleteModal } from "./ParcelDeleteModal";
 
 const statusColor: { [key: string]: string } = {
@@ -29,21 +28,7 @@ const statusColor: { [key: string]: string } = {
 };
 
 const MyParcel = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [limit] = useState(5);
-
-  useEffect(() => {
-    const handleHashChange = () => {
-      const pageFromHash = Number(window.location.hash.split("/")[2]) || 1;
-      setCurrentPage(pageFromHash);
-    };
-
-    handleHashChange();
-    window.addEventListener("hashchange", handleHashChange);
-    return () => window.removeEventListener("hashchange", handleHashChange);
-  }, []);
-
-  const { data, isLoading } = useGetMyParcelQuery({ page: currentPage, limit });
+  const { data, isLoading } = useGetMyParcelQuery({});
   const parcels = data?.data || [];
 
   if (isLoading) return <Loader />;

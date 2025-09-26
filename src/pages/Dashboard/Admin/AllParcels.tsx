@@ -12,7 +12,6 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useGetAllParcelQuery } from "@/redux/Parcel/parcel.api";
-import { useEffect, useState } from "react";
 import { EditParcelStatus } from "./EditParcelStatus";
 
 const statusColor: { [key: string]: string } = {
@@ -27,24 +26,7 @@ const statusColor: { [key: string]: string } = {
 };
 
 const AllParcels = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [limit] = useState(5);
-
-  useEffect(() => {
-    const handleHashChange = () => {
-      const pageFromHash = Number(window.location.hash.split("/")[2]) || 1;
-      setCurrentPage(pageFromHash);
-    };
-
-    handleHashChange();
-    window.addEventListener("hashchange", handleHashChange);
-    return () => window.removeEventListener("hashchange", handleHashChange);
-  }, []);
-
-  const { data, isLoading } = useGetAllParcelQuery({
-    page: currentPage,
-    limit,
-  });
+  const { data, isLoading } = useGetAllParcelQuery({});
 
   const parcels = data?.data;
 

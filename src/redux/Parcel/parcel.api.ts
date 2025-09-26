@@ -3,10 +3,9 @@ import { baseApi } from "@/redux/baseApi";
 export const parcelAPi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getAllParcel: builder.query({
-      query: (params) => ({
+      query: () => ({
         url: "/parcel/all-parcel",
         method: "GET",
-        params: params,
         credentials: "include",
       }),
       providesTags: ["PARCELS"],
@@ -49,10 +48,9 @@ export const parcelAPi = baseApi.injectEndpoints({
       }),
     }),
     getIncomingParcel: builder.query({
-      query: (params) => ({
+      query: () => ({
         url: "/parcel/incoming",
         method: "GET",
-        params: params,
       }),
       providesTags: ["PARCEL"],
     }),
