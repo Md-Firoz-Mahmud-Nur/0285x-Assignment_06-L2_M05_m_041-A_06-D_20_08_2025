@@ -1,73 +1,178 @@
-# React + TypeScript + Vite
+📦 Parcel Delivery Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-featured, responsive frontend web application for managing parcel deliveries, integrated with the Parcel Delivery API
+.
+Built using React, TypeScript, Redux Toolkit Query, and Tailwind CSS, with role-based dashboards for Admin, Sender, and Receiver.
 
-Currently, two official plugins are available:
+🚀 Live Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Frontend: Parcel Delivery Client
 
-## React Compiler
+Backend: Parcel Delivery API
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Repository: GitHub Repo
 
-## Expanding the ESLint configuration
+🧩 Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+React 19 + TypeScript
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Redux Toolkit Query (RTK Query)
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+React Router v7
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Tailwind CSS + Radix UI + ShadCN Components
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Framer Motion for animations
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Axios for API calls
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Zod for validation
+
+Vite for development and build tooling
+
+🎯 Project Overview
+
+This frontend connects with the Parcel Delivery API to provide a seamless delivery management experience.
+Users can register, log in, and perform actions based on their assigned roles — with a clean, dashboard-style UI.
+
+👥 User Roles & Access
+Role	Access
+Admin	Manage all users, parcels, and system activity
+Sender	Create parcels, view and cancel requests, track delivery progress
+Receiver	View incoming parcels, confirm receipt after delivery
+🧱 Core Features
+🔐 Authentication & Authorization
+
+Secure login/register system (JWT-based)
+
+Role-based route protection using withAuth
+
+Persistent user session via cookies
+
+📦 Parcel Management
+
+Create, view, update, and track parcels
+
+Lifecycle stages: Requested → Approved → Dispatched → In Transit → Delivered
+
+Senders can cancel before approval
+
+Receivers can confirm delivery
+
+🧭 Dashboard System
+
+Separate dashboards for:
+
+Admin: Manage all users & parcels
+
+Sender: Manage their created parcels
+
+Receiver: View incoming deliveries
+
+🧰 UI & UX
+
+Responsive, mobile-first design
+
+Animated transitions with Framer Motion
+
+Prebuilt UI components (button, dialog, table, tooltip, etc.)
+
+Toast notifications using Sonner
+
+🗂️ Folder Structure (Simplified)
+src/
+├── components/        # Reusable UI components (Navbar, Footer, Loader, etc.)
+├── layout/            # Layout components for Dashboard and Main site
+├── pages/             # All pages grouped by role or feature
+│   ├── Auth/          # Login / Register
+│   ├── Dashboard/     # Admin, Sender, Receiver pages
+│   ├── HomePage/      # Landing & marketing sections
+│   ├── About/Contact/ # Static pages
+├── redux/             # RTK store, slices, API endpoints
+│   ├── Auth/          # Authentication APIs
+│   ├── Parcel/        # Parcel management APIs
+│   ├── User/          # User-related APIs
+│   ├── baseApi.ts     # Base RTK API setup with Axios
+│   └── store.ts       # Redux store configuration
+├── routes/            # Role-based routes and sidebar items
+├── utils/             # Helper functions like withAuth, route generators
+├── hooks/             # Custom hooks
+├── types/             # Global TypeScript types
+└── main.tsx           # Application entry point
+
+🔗 API Integration
+
+All API calls are handled using RTK Query through the baseApi.ts setup:
+
+auth.api.ts → Authentication endpoints
+
+user.api.ts → User management
+
+parcel.api.ts → Parcel CRUD operations
+
+Each query/mutation auto-manages caching, loading, and invalidation.
+
+⚙️ Environment Setup
+1️⃣ Clone & Install
+git clone https://github.com/Md-Firoz-Mahmud-Nur/0285x-Assignment_06-L2_M05_m_041-A_06-D_20_08_2025.git
+cd 0285x-Assignment_06-L2_M05_m_041-A_06-D_20_08_2025
+npm install
+
+2️⃣ Create .env File
+
+Add your backend API base URL:
+
+VITE_API_BASE_URL=https://0284-assignment-05-l2-m05-m-034-a-0.vercel.app/api/v1
+
+3️⃣ Run Locally
+npm run dev
+
+
+The app will start on http://localhost:5173
+
+🧭 Routing Overview
+Path	Role	Description
+/	Public	Home page
+/login	Public	User login
+/register	Public	User registration
+/admin/*	Admin	Dashboard (users, parcels, tracking)
+/sender/*	Sender	Dashboard (create, manage, track parcels)
+/receiver/*	Receiver	Dashboard (incoming, confirm delivery)
+📊 State Management
+
+The app uses:
+
+Redux Toolkit Query (RTK Query) for API data fetching
+
+React Hook Form + Zod for input validation
+
+React Context (minimal) for shared UI states
+
+🧑‍💻 Developer Notes
+
+Responsive design with Tailwind CSS
+
+Uses ShadCN UI components
+
+Clean folder structure for scalability
+
+Animations handled by Framer Motion
+
+Deployed on Vercel
+
+🧠 Future Enhancements
+
+Dark mode support
+
+Real-time parcel tracking updates via WebSockets
+
+Admin analytics dashboard
+
+👨‍💻 Developed by
+
+Md Firoz Mahmud Nur
+
+Full-Stack MERN Developer
+📧 firoznur5@gmail.com
+
+🔗 LinkedIn
