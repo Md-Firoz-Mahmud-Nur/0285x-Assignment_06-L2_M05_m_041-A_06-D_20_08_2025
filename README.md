@@ -12,7 +12,25 @@
 
 > Backend: [Parcel Delivery API](https://github.com/Md-Firoz-Mahmud-Nur/0284-Assignment_05-L2_M05_m_034-A_05-D_28_07_2025)
 
+## Login Credentials
 
+### 🧑‍💼 Admin
+
+* Email: admin@admin.com
+
+* Password: 12345678
+
+### 🚚 Sender
+
+* Email: a@sender.com
+
+* Password: Hossain@1
+
+### 📦 Receiver
+
+* Email: b@receiver.com
+
+* Password: Hossain@1
 
 ## 🧩 Tech Stack
 
