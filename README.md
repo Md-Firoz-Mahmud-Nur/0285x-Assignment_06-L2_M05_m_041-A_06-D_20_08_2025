@@ -137,12 +137,14 @@ npm run dev
 ## 🧭 Routing Overview
 
 Path	Role	Description
-> /	Public	Home page
-> /login	Public	User login
-> /register	Public	User registration
-> /admin/*	Admin	Dashboard (users, parcels, tracking)
-> /sender/*	Sender	Dashboard (create, manage, track parcels)
-> /receiver/*	Receiver	Dashboard (incoming, confirm delivery)
+```
+/Public	    Home page
+/login	    Public	User login
+/register	Public	User registration
+/admin/*	Admin	Dashboard (users, parcels, tracking)
+/sender/*	Sender	Dashboard (create, manage, track parcels)
+/receiver/*	Receiver	Dashboard (incoming, confirm delivery)
+```
 
 ## 📊 State Management
 
