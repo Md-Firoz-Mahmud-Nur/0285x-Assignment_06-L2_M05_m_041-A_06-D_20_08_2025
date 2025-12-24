@@ -252,19 +252,19 @@ const Contact: React.FC = () => {
                   {
                     icon: Phone,
                     title: "Phone",
-                    content: "+1 (555) 123-4567",
+                    content: "+880 1797-626050",
                     gradient: "from-blue-400 to-blue-600",
                   },
                   {
                     icon: Mail,
                     title: "Email",
-                    content: "support@parcelex.com",
+                    content: "firoznur5@gmail.com",
                     gradient: "from-cyan-400 to-cyan-600",
                   },
                   {
                     icon: MapPin,
                     title: "Address",
-                    content: "123 Delivery Street, Logistics City, LC 12345",
+                    content: "Rangpur, Bangladesh",
                     gradient: "from-sky-400 to-sky-600",
                   },
                 ].map((item, index) => (
@@ -362,7 +362,7 @@ const Contact: React.FC = () => {
                           ? "border-red-500 focus:border-red-500 focus:ring-red-200"
                           : "border-gray-200 hover:border-blue-300 focus:border-blue-500 focus:ring-blue-200"
                       }`}
-                      placeholder="john@example.com"
+                      placeholder="firoznur5@gmail.com"
                     />
                     {errors.email && (
                       <p className="mt-2 text-sm font-semibold text-red-500">
@@ -383,7 +383,7 @@ const Contact: React.FC = () => {
                       value={formData.phone}
                       onChange={handleInputChange}
                       className="w-full rounded-2xl border-2 border-gray-200 bg-white/80 px-6 py-4 text-lg backdrop-blur-sm transition-all duration-300 hover:border-blue-300 focus:border-blue-500 focus:ring-4 focus:ring-blue-200 focus:outline-none"
-                      placeholder="+1 (555) 123-4567"
+                      placeholder="+880 1797-626050"
                     />
                   </div>
 

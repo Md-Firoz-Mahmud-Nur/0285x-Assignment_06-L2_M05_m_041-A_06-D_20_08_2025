@@ -5,14 +5,15 @@ import About from "@/pages/About/About";
 import Login from "@/pages/Auth/Login";
 import Register from "@/pages/Auth/Register";
 import Contact from "@/pages/Contact/Contact";
+import HelpCenter from "@/pages/HelpCenter/HelpCenter";
 import Home from "@/pages/HomePage/Home";
 import type { TRole } from "@/types";
 import { generateRoutes } from "@/utils/generateRoutes";
 import { withAuth } from "@/utils/withAuth";
 import { createBrowserRouter, Navigate } from "react-router";
 import { adminSidebarItems } from "./adminSidebarItems";
-import { senderSidebarItems } from "./senderSideBar";
 import { receiverSidebarItems } from "./receiverSideBarItems";
+import { senderSidebarItems } from "./senderSideBar";
 
 export const router = createBrowserRouter([
   {
@@ -30,6 +31,10 @@ export const router = createBrowserRouter([
       {
         Component: Contact,
         path: "contact",
+      },
+      {
+        Component: HelpCenter,
+        path: "help-center",
       },
     ],
   },

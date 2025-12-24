@@ -138,10 +138,12 @@ export default function Footer() {
                   </div>
                 </li>
                 <li>
-                  <div className="text-muted-foreground group/link flex items-center gap-2 text-sm transition-colors hover:text-cyan-600">
-                    <div className="h-1.5 w-1.5 rounded-full bg-blue-500 transition-transform group-hover/link:scale-150" />
-                    Contact Us
-                  </div>
+                  <Link to="/contact">
+                    <div className="text-muted-foreground group/link flex items-center gap-2 text-sm transition-colors hover:text-cyan-600">
+                      <div className="h-1.5 w-1.5 rounded-full bg-blue-500 transition-transform group-hover/link:scale-150" />
+                      Contact Us
+                    </div>
+                  </Link>
                 </li>
                 <li>
                   <div className="text-muted-foreground group/link flex items-center gap-2 text-sm transition-colors hover:text-cyan-600">

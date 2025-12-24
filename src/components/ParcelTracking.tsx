@@ -358,7 +358,6 @@ export function ParcelTracking({ parcels, isLoading }: ParcelTrackingProps) {
       `}</style>
 
       <section className="relative min-h-screen overflow-hidden bg-linear-to-br from-sky-50 via-white to-cyan-50 p-4 md:p-6">
-        {/* animated background, header, stats + chart unchanged, just use stats + chartData */}
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
           <div className="float absolute top-20 left-10 h-40 w-40 rounded-full bg-cyan-300/20"></div>
           <div
@@ -370,8 +369,6 @@ export function ParcelTracking({ parcels, isLoading }: ParcelTrackingProps) {
             style={{ animationDelay: "4s" }}
           ></div>
         </div>
-
-        {/* ... header, stats, chart using stats + chartData ... */}
 
         <div className="relative z-10 mx-auto max-w-7xl">
           <div className="fade-in-up mb-12 text-center">
@@ -564,7 +561,7 @@ export function ParcelTracking({ parcels, isLoading }: ParcelTrackingProps) {
                   </div>
                 ))}
 
-                {totalPages > 1 && (
+                {totalPages > 0 && (
                   <div className="mt-6 flex items-center justify-center gap-2">
                     <button
                       disabled={currentPage === 1}
