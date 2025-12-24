@@ -46,7 +46,7 @@ const HeroSection = () => {
 
   return (
     <section
-      className="relative mt-10 flex max-h-[80vh] items-center overflow-hidden bg-cover bg-center bg-no-repeat"
+      className="relative mt-10 flex max-h-[90vh] items-center overflow-hidden bg-cover bg-center bg-no-repeat"
       style={{
         backgroundImage: "url('/hero-delivery-background.jpg')",
       }}
