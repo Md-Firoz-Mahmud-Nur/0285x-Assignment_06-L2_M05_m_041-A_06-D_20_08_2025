@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { useUserInfoQuery } from "@/redux/Auth/auth.api";
 import {
   ArrowRight,
   Clock,
@@ -9,8 +10,24 @@ import {
   Shield,
   Truck,
 } from "lucide-react";
+import { Link } from "react-router";
 
 export default function Footer() {
+  const { data: user } = useUserInfoQuery(undefined);
+  type Role = "ADMIN" | "RECEIVER" | "SENDER";
+  const role = (user?.data?.role as Role) || undefined;
+
+  const roleRoutes: Record<Role, string> = {
+    ADMIN: "/admin",
+    RECEIVER: "/receiver",
+    SENDER: "/sender",
+  };
+
+  const overviewPath =
+    role && roleRoutes[role] ? `${roleRoutes[role]}/overview` : "/login";
+
+  console.log("role", role);
+
   return (
     <footer className="relative overflow-hidden bg-linear-to-b from-slate-100 via-blue-50/30 to-blue-100/50">
       <div className="absolute -top-16 right-0 left-0 h-24 overflow-hidden">
@@ -47,10 +64,12 @@ export default function Footer() {
             Fast, reliable, and secure parcel delivery service connecting you
             worldwide with cutting-edge logistics technology.
           </p>
-          <Button className="group bg-linear-to-r from-blue-600 to-cyan-500 text-white shadow-lg shadow-blue-500/30 hover:from-blue-700 hover:to-cyan-600">
-            Track Your Package
-            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </Button>
+          <Link to={overviewPath}>
+            <Button className="group bg-linear-to-r from-blue-600 to-cyan-500 text-white shadow-lg shadow-blue-500/30 hover:from-blue-700 hover:to-cyan-600">
+              Track Your Package
+              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+            </Button>
+          </Link>
         </div>
 
         <div className="mb-12 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -67,37 +86,25 @@ export default function Footer() {
               </div>
               <ul className="space-y-3">
                 <li>
-                  <a
-                    href="#"
-                    className="text-muted-foreground group/link flex items-center gap-2 text-sm transition-colors hover:text-blue-600"
-                  >
+                  <div className="text-muted-foreground group/link flex items-center gap-2 text-sm transition-colors hover:text-blue-600">
                     <div className="h-1.5 w-1.5 rounded-full bg-blue-500 transition-transform group-hover/link:scale-150" />
                     Express Delivery
-                  </a>
+                  </div>
                 </li>
                 <li>
-                  <a
-                    href="#"
-                    className="text-muted-foreground group/link flex items-center gap-2 text-sm transition-colors hover:text-blue-600"
-                  >
+                  <div className="text-muted-foreground group/link flex items-center gap-2 text-sm transition-colors hover:text-blue-600">
                     <div className="h-1.5 w-1.5 rounded-full bg-blue-500 transition-transform group-hover/link:scale-150" />
                     Same Day Shipping
-                  </a>
+                  </div>
                 </li>
                 <li>
-                  <a
-                    href="#"
-                    className="text-muted-foreground group/link flex items-center gap-2 text-sm transition-colors hover:text-blue-600"
-                  >
+                  <div className="text-muted-foreground group/link flex items-center gap-2 text-sm transition-colors hover:text-blue-600">
                     <div className="h-1.5 w-1.5 rounded-full bg-cyan-500 transition-transform group-hover/link:scale-150" />
                     International Delivery
-                  </a>
+                  </div>
                 </li>
                 <li>
-                  <a
-                    href="#"
-                    className="text-muted-foreground group/link flex items-center gap-2 text-sm transition-colors hover:text-blue-600"
-                  >
+                  <a className="text-muted-foreground group/link flex items-center gap-2 text-sm transition-colors hover:text-blue-600">
                     <div className="h-1.5 w-1.5 rounded-full bg-cyan-500 transition-transform group-hover/link:scale-150" />
                     Bulk Orders
                   </a>
@@ -119,40 +126,30 @@ export default function Footer() {
               </div>
               <ul className="space-y-3">
                 <li>
-                  <a
-                    href="#"
-                    className="text-muted-foreground group/link flex items-center gap-2 text-sm transition-colors hover:text-cyan-600"
-                  >
-                    <div className="h-1.5 w-1.5 rounded-full bg-cyan-500 transition-transform group-hover/link:scale-150" />
-                    Track Package
-                  </a>
+                  <Link to={overviewPath}>
+                    <div className="text-muted-foreground group/link flex items-center gap-2 text-sm transition-colors hover:text-cyan-600">
+                      <div className="h-1.5 w-1.5 rounded-full bg-cyan-500 transition-transform group-hover/link:scale-150" />
+                      Track Package
+                    </div>
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="#"
-                    className="text-muted-foreground group/link flex items-center gap-2 text-sm transition-colors hover:text-cyan-600"
-                  >
+                  <div className="text-muted-foreground group/link flex items-center gap-2 text-sm transition-colors hover:text-cyan-600">
                     <div className="h-1.5 w-1.5 rounded-full bg-cyan-500 transition-transform group-hover/link:scale-150" />
                     Help Center
-                  </a>
+                  </div>
                 </li>
                 <li>
-                  <a
-                    href="#"
-                    className="text-muted-foreground group/link flex items-center gap-2 text-sm transition-colors hover:text-cyan-600"
-                  >
+                  <div className="text-muted-foreground group/link flex items-center gap-2 text-sm transition-colors hover:text-cyan-600">
                     <div className="h-1.5 w-1.5 rounded-full bg-blue-500 transition-transform group-hover/link:scale-150" />
                     Contact Us
-                  </a>
+                  </div>
                 </li>
                 <li>
-                  <a
-                    href="#"
-                    className="text-muted-foreground group/link flex items-center gap-2 text-sm transition-colors hover:text-cyan-600"
-                  >
+                  <div className="text-muted-foreground group/link flex items-center gap-2 text-sm transition-colors hover:text-cyan-600">
                     <div className="h-1.5 w-1.5 rounded-full bg-blue-500 transition-transform group-hover/link:scale-150" />
                     Claims & Returns
-                  </a>
+                  </div>
                 </li>
               </ul>
             </div>
@@ -175,7 +172,7 @@ export default function Footer() {
                     <Phone className="h-4 w-4 text-blue-600" />
                   </div>
                   <span className="text-muted-foreground">
-                    +1 (555) 123-4567
+                    +880 1797-626050
                   </span>
                 </div>
                 <div className="group/item flex items-center gap-3 text-sm">
@@ -183,7 +180,7 @@ export default function Footer() {
                     <Mail className="h-4 w-4 text-cyan-600" />
                   </div>
                   <span className="text-muted-foreground">
-                    support@NextParcel.com
+                    firoznur5@gmail.com
                   </span>
                 </div>
                 <div className="group/item flex items-start gap-3 text-sm">
@@ -191,7 +188,7 @@ export default function Footer() {
                     <MapPin className="h-4 w-4 text-blue-600" />
                   </div>
                   <span className="text-muted-foreground leading-relaxed">
-                    123 Delivery St, Logistics City, LC 12345
+                    Rangpur, Bangladesh
                   </span>
                 </div>
               </div>
@@ -200,48 +197,57 @@ export default function Footer() {
         </div>
 
         <div className="mb-8 flex justify-center gap-3">
-          <Button
-            size="sm"
-            variant="outline"
-            className="h-10 w-10 rounded-full border-2 border-blue-200 bg-white/50 p-0 backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:border-blue-400 hover:bg-blue-50 hover:shadow-lg hover:shadow-blue-500/20"
-          >
-            <span className="sr-only">Facebook</span>
-            <svg
-              className="h-4 w-4 text-blue-600"
-              fill="currentColor"
-              viewBox="0 0 24 24"
+          <Link to="https://www.facebook.com/firoz.nur" target="_blank">
+            <Button
+              size="sm"
+              variant="outline"
+              className="h-10 w-10 rounded-full border-2 border-blue-200 bg-white/50 p-0 backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:border-blue-400 hover:bg-blue-50 hover:shadow-lg hover:shadow-blue-500/20"
             >
-              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-            </svg>
-          </Button>
-          <Button
-            size="sm"
-            variant="outline"
-            className="h-10 w-10 rounded-full border-2 border-cyan-200 bg-white/50 p-0 backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:border-cyan-400 hover:bg-cyan-50 hover:shadow-lg hover:shadow-cyan-500/20"
-          >
-            <span className="sr-only">Twitter</span>
-            <svg
-              className="h-4 w-4 text-cyan-600"
-              fill="currentColor"
-              viewBox="0 0 24 24"
+              <span className="sr-only">Facebook</span>
+              <svg
+                className="h-4 w-4 text-blue-600"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+              </svg>
+            </Button>
+          </Link>
+          <Link to="https://x.com/FirozNur0" target="_blank">
+            <Button
+              size="sm"
+              variant="outline"
+              className="h-10 w-10 rounded-full border-2 border-cyan-200 bg-white/50 p-0 backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:border-cyan-400 hover:bg-cyan-50 hover:shadow-lg hover:shadow-cyan-500/20"
             >
-              <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
-            </svg>
-          </Button>
-          <Button
-            size="sm"
-            variant="outline"
-            className="h-10 w-10 rounded-full border-2 border-blue-200 bg-white/50 p-0 backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:border-blue-400 hover:bg-blue-50 hover:shadow-lg hover:shadow-blue-500/20"
+              <span className="sr-only">Twitter</span>
+              <svg
+                className="h-4 w-4 text-cyan-600"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z" />
+              </svg>
+            </Button>
+          </Link>
+          <Link
+            to="https://www.linkedin.com/in/md-firoz-mahmud-nur/"
+            target="_blank"
           >
-            <span className="sr-only">LinkedIn</span>
-            <svg
-              className="h-4 w-4 text-blue-600"
-              fill="currentColor"
-              viewBox="0 0 24 24"
+            <Button
+              size="sm"
+              variant="outline"
+              className="h-10 w-10 rounded-full border-2 border-blue-200 bg-white/50 p-0 backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:border-blue-400 hover:bg-blue-50 hover:shadow-lg hover:shadow-blue-500/20"
             >
-              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-            </svg>
-          </Button>
+              <span className="sr-only">LinkedIn</span>
+              <svg
+                className="h-4 w-4 text-blue-600"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+              </svg>
+            </Button>
+          </Link>
         </div>
 
         <div className="border-t border-blue-200/50 pt-8">
@@ -250,17 +256,11 @@ export default function Footer() {
               © 2025 NextParcel. All rights reserved.
             </span>
             <span className="hidden text-blue-300 sm:inline">•</span>
-            <a
-              href="#"
-              className="underline-offset-4 transition-colors duration-200 hover:text-blue-600 hover:underline"
-            >
+            <a className="underline-offset-4 transition-colors duration-200 hover:text-blue-600 hover:underline">
               Privacy Policy
             </a>
             <span className="text-blue-300">•</span>
-            <a
-              href="#"
-              className="underline-offset-4 transition-colors duration-200 hover:text-blue-600 hover:underline"
-            >
+            <a className="underline-offset-4 transition-colors duration-200 hover:text-blue-600 hover:underline">
               Terms of Service
             </a>
           </div>
