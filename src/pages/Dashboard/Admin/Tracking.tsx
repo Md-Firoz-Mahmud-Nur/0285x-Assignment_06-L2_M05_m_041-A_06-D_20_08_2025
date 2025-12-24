@@ -26,6 +26,8 @@ const Tracking = () => {
 
   const [searchId, setSearchId] = useState("");
   const [isLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 2;
 
   const stats = useMemo(() => {
     const total = deliveryData?.data?.length;
@@ -53,6 +55,15 @@ const Tracking = () => {
   }, [searchId, deliveryData]);
 
   console.log("filteredParcels", filteredParcels);
+
+  const totalParcels = filteredParcels.length;
+  const totalPages = Math.max(1, Math.ceil(totalParcels / itemsPerPage));
+
+  const paginatedParcels = useMemo(() => {
+    const start = (currentPage - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    return filteredParcels.slice(start, end);
+  }, [filteredParcels, currentPage]);
 
   const chartData = useMemo(() => {
     return [
@@ -454,7 +465,10 @@ const Tracking = () => {
                 type="text"
                 placeholder="Enter tracking ID (e.g., TRK-20250820-000001)"
                 value={searchId}
-                onChange={(e) => setSearchId(e.target.value)}
+                onChange={(e) => {
+                  setSearchId(e.target.value);
+                  setCurrentPage(1);
+                }}
                 className="search-box w-full"
               />
             </div>
@@ -464,81 +478,109 @@ const Tracking = () => {
             <h2 className="mb-6 text-3xl font-bold text-sky-900">
               {searchId ? "Search Results" : "All Parcels"}
             </h2>
-
-            {filteredParcels?.length === 0 ? (
+            {filteredParcels.length === 0 ? (
               <div className="tracking-container p-8 text-center">
                 <p className="text-lg text-gray-500">
                   No parcels found matching your search.
                 </p>
               </div>
             ) : (
-              filteredParcels.map((parcel: any) => (
-                <div key={parcel._id} className="parcel-card">
-                  <div className="parcel-header">
-                    <span className="parcel-tracking-id">
-                      {parcel.trackingId}
-                    </span>
-                    <span
-                      className="parcel-status"
-                      style={{
-                        backgroundColor:
-                          statusColor[parcel.status] || "#E5E7EB",
-                        color: "black",
-                      }}
-                    >
-                      {parcel.status}
-                    </span>
-                  </div>
+              <>
+                {paginatedParcels.map((parcel: any) => (
+                  <div key={parcel._id} className="parcel-card">
+                    <div className="parcel-header">
+                      <span className="parcel-tracking-id">
+                        {parcel.trackingId}
+                      </span>
+                      <span
+                        className="parcel-status"
+                        style={{
+                          backgroundColor:
+                            statusColor[parcel.status] || "#E5E7EB",
+                          color: "black",
+                        }}
+                      >
+                        {parcel.status}
+                      </span>
+                    </div>
 
-                  <div className="parcel-details">
-                    <div className="detail-item">
-                      <div className="detail-label">Type</div>
-                      <div className="detail-value">{parcel.type}</div>
-                    </div>
-                    <div className="detail-item">
-                      <div className="detail-label">Weight</div>
-                      <div className="detail-value">{parcel.weight} kg</div>
-                    </div>
-                    <div className="detail-item">
-                      <div className="detail-label">Fee</div>
-                      <div className="detail-value">${parcel.fee}</div>
-                    </div>
-                    <div className="detail-item">
-                      <div className="detail-label">From</div>
-                      <div className="detail-value">{parcel.pickupAddress}</div>
-                    </div>
-                    <div className="detail-item">
-                      <div className="detail-label">To</div>
-                      <div className="detail-value">
-                        {parcel.deliveryAddress}
+                    <div className="parcel-details">
+                      <div className="detail-item">
+                        <div className="detail-label">Type</div>
+                        <div className="detail-value">{parcel.type}</div>
                       </div>
-                    </div>
-                    <div className="detail-item">
-                      <div className="detail-label">Expected Delivery</div>
-                      <div className="detail-value">
-                        {new Date(parcel.deliveryDate).toLocaleDateString()}
+                      <div className="detail-item">
+                        <div className="detail-label">Weight</div>
+                        <div className="detail-value">{parcel.weight} kg</div>
                       </div>
-                    </div>
-                  </div>
-
-                  <div className="timeline-container">
-                    <h3 className="mb-6 text-lg font-bold text-sky-900">
-                      Status Timeline
-                    </h3>
-                    {parcel.statusLogs.map((log: any, logIdx: number) => (
-                      <div key={logIdx} className="timeline-item">
-                        <div className="timeline-dot">{logIdx + 1}</div>
-                        <div className="timeline-content">
-                          <div className="timeline-status">{log.status}</div>
-                          <div className="timeline-time">
-                            {new Date(log.createdAt).toLocaleString()}
-                          </div>
+                      <div className="detail-item">
+                        <div className="detail-label">Fee</div>
+                        <div className="detail-value">${parcel.fee}</div>
+                      </div>
+                      <div className="detail-item">
+                        <div className="detail-label">From</div>
+                        <div className="detail-value">
+                          {parcel.pickupAddress}
                         </div>
                       </div>
-                    ))}
+                      <div className="detail-item">
+                        <div className="detail-label">To</div>
+                        <div className="detail-value">
+                          {parcel.deliveryAddress}
+                        </div>
+                      </div>
+                      <div className="detail-item">
+                        <div className="detail-label">Expected Delivery</div>
+                        <div className="detail-value">
+                          {new Date(parcel.deliveryDate).toLocaleDateString()}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="timeline-container">
+                      <h3 className="mb-6 text-lg font-bold text-sky-900">
+                        Status Timeline
+                      </h3>
+                      {parcel.statusLogs.map((log: any, logIdx: number) => (
+                        <div key={logIdx} className="timeline-item">
+                          <div className="timeline-dot">{logIdx + 1}</div>
+                          <div className="timeline-content">
+                            <div className="timeline-status">{log.status}</div>
+                            <div className="timeline-time">
+                              {new Date(log.createdAt).toLocaleString()}
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              ))
+                ))}
+
+                {/* Pagination controls */}
+                {totalPages > 1 && (
+                  <div className="mt-6 flex items-center justify-center gap-2">
+                    <button
+                      disabled={currentPage === 1}
+                      onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+                      className="rounded-full border border-sky-200 px-3 py-1 text-sm text-sky-700 disabled:cursor-not-allowed disabled:opacity-40"
+                    >
+                      Prev
+                    </button>
+                    <span className="text-sm text-slate-700">
+                      Page {currentPage} of {totalPages}
+                    </span>
+                    <button
+                      disabled={currentPage === totalPages}
+                      onClick={() =>
+                        setCurrentPage((p) => Math.min(totalPages, p + 1))
+                      }
+                      className="rounded-full border border-sky-200 px-3 py-1 text-sm text-sky-700 disabled:cursor-not-allowed disabled:opacity-40"
+                    >
+                      Next
+                    </button>
+                  </div>
+                )}
+              </>
             )}
           </div>
         </div>
