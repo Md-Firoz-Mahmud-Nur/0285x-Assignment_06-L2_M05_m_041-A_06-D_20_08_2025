@@ -12,6 +12,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarRail,
+  useSidebar,
 } from "@/components/ui/sidebar";
 import { useUserInfoQuery } from "@/redux/Auth/auth.api";
 import { getSidebarItems } from "@/utils/getSidebarItems";
@@ -46,6 +47,7 @@ const iconMap: Record<string, React.ComponentType<any>> = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { data: userData } = useUserInfoQuery(undefined);
+  const { setOpenMobile } = useSidebar();
 
   const data = {
     navMain: getSidebarItems(userData?.data?.role),
@@ -118,6 +120,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                           >
                             <NavLink
                               to={item.url}
+                              onClick={() => {
+                                if (window.innerWidth < 768) {
+                                  console.log(window.innerWidth);
+                                  setOpenMobile(false);
+                                }
+                              }}
                               className={({ isActive }) =>
                                 `flex items-center gap-3 px-3 py-2.5 text-sm font-medium transition-colors ${
                                   isActive
