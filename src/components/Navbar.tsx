@@ -23,7 +23,7 @@ import {
 } from "@/redux/Auth/auth.api";
 import { useAppDispatch } from "@/redux/hook";
 import { Menu } from "lucide-react";
-import { useEffect } from "react";
+import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { toast } from "sonner";
 
@@ -45,18 +45,18 @@ const menuItems = [
     url: "/contact",
     role: "PUBLIC",
   },
+  {
+    title: "Help",
+    url: "/help-center",
+    role: "PUBLIC",
+  },
 ];
 
 const Navbar = () => {
   const { data: user, isLoading } = useUserInfoQuery(undefined);
   const [logout] = useLogoutMutation(undefined);
   const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    if (user?.data) {
-      console.log("user from navbar", user.data);
-    }
-  }, [user]);
+  const [open, setOpen] = useState(false);
 
   const handleLogout = async () => {
     try {
@@ -206,7 +206,7 @@ const Navbar = () => {
                 </span>
               </div>
             </NavLink>
-            <Sheet>
+            <Sheet open={open} onOpenChange={setOpen}>
               <div className="flex gap-3">
                 <SheetTrigger asChild>
                   <Button
@@ -251,7 +251,9 @@ const Navbar = () => {
                     collapsible
                     className="flex w-full flex-col gap-4"
                   >
-                    {menuItems.map((item) => renderMobileMenuItem(item))}
+                    {menuItems.map((item) =>
+                      renderMobileMenuItem(item, () => setOpen(false)),
+                    )}
                   </Accordion>
 
                   <div className="flex flex-col gap-3">
@@ -354,11 +356,12 @@ const renderMenuItem = (item: MenuItem) => {
   );
 };
 
-const renderMobileMenuItem = (item: MenuItem) => {
+const renderMobileMenuItem = (item: MenuItem, closeSheet: () => void) => {
   return (
     <Link
       key={item.title}
       to={item.url}
+      onClick={closeSheet}
       className="text-md group flex items-center gap-3 rounded-lg p-3 font-semibold transition-all duration-200 hover:bg-blue-50 hover:text-blue-700 dark:hover:bg-blue-950/50 dark:hover:text-blue-300"
     >
       <div className="h-2 w-2 rounded-full bg-blue-500 opacity-0 transition-opacity duration-200 group-hover:opacity-100"></div>

@@ -122,7 +122,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                               to={item.url}
                               onClick={() => {
                                 if (window.innerWidth < 768) {
-                                  console.log(window.innerWidth);
                                   setOpenMobile(false);
                                 }
                               }}

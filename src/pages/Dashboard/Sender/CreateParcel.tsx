@@ -73,7 +73,6 @@ const CreateParcel = () => {
 
   useEffect(() => {
     if (user?.data?._id) {
-      console.log(user.data._id);
       form.setValue("sender", user.data._id);
     }
   }, [user]);
@@ -95,7 +94,6 @@ const CreateParcel = () => {
   const allReceiver = receiver?.data?.data;
 
   const onSubmit = async (data: any) => {
-    console.log("hit");
     data.deliveryDate = new Date(data.deliveryDate).toISOString();
     const toastId = toast.loading("Parcel creating...");
 

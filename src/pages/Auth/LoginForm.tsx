@@ -35,16 +35,13 @@ export function LoginForm({
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     try {
-      console.log("data", data);
       const res = await login(data).unwrap();
-      console.log("Login successful:", res);
 
       if (res.success) {
         toast.success("Logged in successfully");
         navigate("/");
       }
 
-      console.log(res);
     } catch (err) {
       if (
         typeof err === "object" &&

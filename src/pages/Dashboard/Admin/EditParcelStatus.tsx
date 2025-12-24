@@ -56,7 +56,6 @@ export function EditParcelStatus({ singleParcel, disabled = false }: any) {
     const parcelTrkId = singleParcel.trackingId;
     try {
       await editParcel({ parcelTrkId, data }).unwrap();
-      console.log("data", data);
       toast.success("Parcel status updated", { id: toastId });
       setOpen(false);
     } catch (error: any) {
@@ -76,7 +75,7 @@ export function EditParcelStatus({ singleParcel, disabled = false }: any) {
       <DialogTrigger asChild disabled={disabled}>
         <Button
           className="rounded-full bg-linear-to-r from-emerald-500 to-teal-400 p-3 shadow-lg transition-transform duration-300 hover:scale-110 hover:shadow-emerald-400/50 disabled:cursor-not-allowed disabled:from-red-400 disabled:to-red-500 disabled:opacity-40"
-          disabled={disabled} 
+          disabled={disabled}
           title={
             disabled
               ? "Cannot edit when status is Delivered/Cancelled"
