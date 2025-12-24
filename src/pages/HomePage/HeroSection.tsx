@@ -2,8 +2,10 @@
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { useUserInfoQuery } from "@/redux/Auth/auth.api";
 import { motion } from "framer-motion";
 import { ArrowRight, Globe, Package, Truck } from "lucide-react";
+import { Link } from "react-router";
 
 const HeroSection = () => {
   const fadeInUp = {
@@ -17,6 +19,30 @@ const HeroSection = () => {
       transition: { staggerChildren: 0.1 },
     },
   };
+
+  const { data: user } = useUserInfoQuery(undefined);
+  type Role = "ADMIN" | "RECEIVER" | "SENDER";
+  const role = (user?.data?.role as Role) || undefined;
+
+  const roleRoutes: Record<Role, string> = {
+    ADMIN: "/admin",
+    RECEIVER: "/receiver",
+    SENDER: "/sender",
+  };
+
+  const overviewPath =
+    role && roleRoutes[role] ? `${roleRoutes[role]}/overview` : "/login";
+
+  const roleActionRoutes: Record<Role, string> = {
+    ADMIN: "/all-parcel",
+    RECEIVER: "/incoming-parcel",
+    SENDER: "/create-parcel",
+  };
+
+  const bookPath =
+    role && roleRoutes[role]
+      ? `${roleRoutes[role]}${roleActionRoutes[role]}`
+      : "/login";
 
   return (
     <section
@@ -59,21 +85,25 @@ const HeroSection = () => {
             variants={fadeInUp}
             className="flex flex-col items-center justify-center gap-4 sm:flex-row"
           >
-            <Button
-              size="lg"
-              className="rounded-xl bg-linear-to-r from-cyan-400 via-sky-500 to-blue-500 px-8 py-6 text-lg font-semibold text-white shadow-xl transition-all hover:scale-105 hover:shadow-2xl"
-            >
-              Book a Parcel
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
+            <Link to={bookPath}>
+              <Button
+                size="lg"
+                className="rounded-xl bg-linear-to-r from-cyan-400 via-sky-500 to-blue-500 px-8 py-6 text-lg font-semibold text-white shadow-xl transition-all hover:scale-105 hover:shadow-2xl"
+              >
+                Book a Parcel
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </Link>
 
-            <Button
-              size="lg"
-              variant="outline"
-              className="rounded-xl border border-white/40 bg-white/10 px-8 py-6 text-lg font-semibold text-white shadow-md backdrop-blur-md transition-all hover:border-cyan-300 hover:bg-cyan-500/30 hover:text-white hover:shadow-lg"
-            >
-              Track Parcel
-            </Button>
+            <Link to={overviewPath}>
+              <Button
+                size="lg"
+                variant="outline"
+                className="rounded-xl border border-white/40 bg-white/10 px-8 py-6 text-lg font-semibold text-white shadow-md backdrop-blur-md transition-all hover:border-cyan-300 hover:bg-cyan-500/30 hover:text-white hover:shadow-lg"
+              >
+                Track Parcel
+              </Button>
+            </Link>
           </motion.div>
         </motion.div>
       </div>

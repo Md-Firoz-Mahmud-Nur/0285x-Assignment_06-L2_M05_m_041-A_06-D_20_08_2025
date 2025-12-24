@@ -26,8 +26,6 @@ export default function Footer() {
   const overviewPath =
     role && roleRoutes[role] ? `${roleRoutes[role]}/overview` : "/login";
 
-  console.log("role", role);
-
   return (
     <footer className="relative overflow-hidden bg-linear-to-b from-slate-100 via-blue-50/30 to-blue-100/50">
       <div className="absolute -top-16 right-0 left-0 h-24 overflow-hidden">
